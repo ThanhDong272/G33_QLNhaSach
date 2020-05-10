@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "191017250149",
+    "firebase_url": "https://qlnhasach.firebaseio.com",
+    "project_id": "qlnhasach",
+    "storage_bucket": "qlnhasach.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:191017250149:android:ca1a7fae3b7c86c736458c",
+        "android_client_info": {
+          "package_name": "com.qat.android.qlnhasach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "191017250149-o7i74o6ch5pt3nj10irpq3etqnap6hbq.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qat.android.qlnhasach",
+            "certificate_hash": "7fd84b4b448463b8fdf0575c270be93e3c0258df"
+          }
+        },
+        {
+          "client_id": "191017250149-hjblfjgn6gfo7l4g6ckl20kdg0mnqlij.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAK0w_kHCo8iQNUprrpB3iJX9jT9IZKkHI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "191017250149-hjblfjgn6gfo7l4g6ckl20kdg0mnqlij.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
