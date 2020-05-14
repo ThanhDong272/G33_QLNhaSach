@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "476059485165",
+    "firebase_url": "https://quanlynhasach-e3e46.firebaseio.com",
+    "project_id": "quanlynhasach-e3e46",
+    "storage_bucket": "quanlynhasach-e3e46.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:476059485165:android:40219c02d927ad16bf1de4",
+        "android_client_info": {
+          "package_name": "com.qat.android.quanlynhasach"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "476059485165-cjeurusne2tco8f3hsnhhgr9t6655445.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.qat.android.quanlynhasach",
+            "certificate_hash": "7fd84b4b448463b8fdf0575c270be93e3c0258df"
+          }
+        },
+        {
+          "client_id": "476059485165-dhp56f98aab0678u451tqrihmsi5oe13.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCM0cMTEMEoUjvgNWT_93jh-_R40gdXzyQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "476059485165-dhp56f98aab0678u451tqrihmsi5oe13.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
