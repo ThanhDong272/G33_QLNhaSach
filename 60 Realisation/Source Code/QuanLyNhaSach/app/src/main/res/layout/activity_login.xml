@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_login"
+    tools:context=".LoginActivity">
+
+    <ImageView
+        android:id="@+id/image_ariana"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.2"
+        android:src="@drawable/background_login" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="20dp"
+        android:layout_marginRight="20dp"
+        android:layout_marginBottom="50dp">
+
+        <LinearLayout
+            android:id="@+id/linear_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:iiv_color="@android:color/white"
+                app:iiv_icon="faw_user" />
+
+            <EditText
+                android:id="@+id/tvemail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@android:color/white"
+                android:hint="@string/email_name"
+                android:imeOptions="actionNext"
+                android:inputType="textEmailAddress"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorHint"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_password"
+            android:layout_marginTop="28dp"
+            android:layout_below="@id/linear_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:iiv_color="@android:color/white"
+                app:iiv_icon="faw_key" />
+
+            <EditText
+                android:id="@+id/tvpassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:hint="@string/password_name"
+                android:imeOptions="actionNext"
+                android:backgroundTint="@android:color/white"
+                android:inputType="textPassword"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorHint"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
+        <com.rey.material.widget.CheckBox
+            style="@style/Material.Drawable.CheckBox"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_password"
+            android:layout_alignParentEnd="true"
+            android:layout_marginTop="6dp"
+            android:layout_marginEnd="6dp"
+            android:gravity="center_vertical"
+            android:text="@string/remember_me_check_box"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            app:cbd_strokeColor="@android:color/white"
+            app:cbd_tickColor="@color/colorPrimary"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/linear_password"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="12dp"
+            android:layout_marginStart="6dp"
+            android:text="@string/no_account"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"/>
+
+        <com.example.myloadingbutton.MyLoadingButton
+            android:id="@+id/btn_login"
+            android:layout_below="@id/linear_password"
+            android:layout_width="match_parent"
+            android:layout_height="52dp"
+            android:layout_marginTop="52dp"
+            app:mlb_label="Login"
+            app:mlb_labelSize="5sp"
+            app:mlb_labelColor="@color/colorPrimary"
+            app:mlb_backgroundColor="@android:color/white"
+            app:mlb_loaderColor="@color/colorPrimary"
+            app:mlb_setNormalAfterError="false" />
+
+        <TextView
+            android:id="@+id/admin_panel_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/btn_login"
+            android:layout_alignParentEnd="true"
+            android:text="@string/admin_name"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+
+        <TextView
+            android:id="@+id/not_admin_panel_link"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="4dp"
+            android:layout_marginTop="12dp"
+            android:layout_below="@+id/btn_login"
+            android:layout_alignParentStart="true"
+            android:text="@string/not_admin_name"
+            android:textColor="@android:color/white"
+            android:textSize="14sp"
+            android:textStyle="bold"
+            android:visibility="invisible"/>
+
+    </RelativeLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/gitchgitch"
+        android:text="@string/logo_name"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
+</RelativeLayout>
