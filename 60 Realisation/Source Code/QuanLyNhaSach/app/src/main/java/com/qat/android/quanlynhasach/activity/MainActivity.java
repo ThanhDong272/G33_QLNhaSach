@@ -1,8 +1,10 @@
-package com.qat.android.quanlynhasach;
+package com.qat.android.quanlynhasach.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.os.Bundle;
+
+import com.qat.android.quanlynhasach.R;
 
 public class MainActivity extends AppCompatActivity {
 

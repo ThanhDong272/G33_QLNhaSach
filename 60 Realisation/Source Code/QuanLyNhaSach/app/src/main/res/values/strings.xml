@@ -1,11 +1,15 @@
 <resources>
     <string name="app_name">QuanLyNhaSach</string>
 
+    <!--    Login Screen-->
     <string name="logo_name">BookStore</string>
-    <string name="email_name">Email</string>
+    <string name="user_name">Username</string>
     <string name="password_name">Password</string>
     <string name="no_account">Don\'t have an account?</string>
     <string name="remember_me_check_box">Remember me</string>
     <string name="admin_name">I\'m an Admin</string>
     <string name="not_admin_name">I\'m not an Admin</string>
+
+    <!--    SignUp Screen-->
+    <string name="email_name">Email</string>
 </resources>

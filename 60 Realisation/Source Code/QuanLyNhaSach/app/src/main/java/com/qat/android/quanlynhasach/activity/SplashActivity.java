@@ -1,10 +1,12 @@
-package com.qat.android.quanlynhasach;
+package com.qat.android.quanlynhasach.activity;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+
+import com.qat.android.quanlynhasach.R;
 
 public class SplashActivity extends AppCompatActivity {
 
