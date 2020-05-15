@@ -37,42 +37,14 @@
                 app:iiv_icon="faw_user" />
 
             <EditText
+                android:id="@+id/edit_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/user_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
-                android:textColor="@android:color/white"
-                android:textColorHint="@color/colorHint"
-                android:textSize="16sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/linear_email"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="28dp"
-            android:layout_below="@+id/linear_account"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <com.mikepenz.iconics.view.IconicsImageView
-                android:layout_width="24dp"
-                android:layout_height="24dp"
-                app:iiv_color="@android:color/white"
-                app:iiv_icon="faw_envelope" />
-
-            <EditText
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="10dp"
-                android:backgroundTint="@android:color/white"
-                android:hint="@string/email_name"
-                android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/colorHint"
                 android:textSize="16sp" />
@@ -82,7 +54,7 @@
         <LinearLayout
             android:id="@+id/linear_password"
             android:layout_marginTop="28dp"
-            android:layout_below="@id/linear_email"
+            android:layout_below="@id/linear_account"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:gravity="center_vertical"
@@ -95,6 +67,7 @@
                 app:iiv_icon="faw_key" />
 
             <EditText
+                android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -108,9 +81,39 @@
 
         </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/linear_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="28dp"
+            android:layout_below="@+id/linear_password"
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
+
+            <com.mikepenz.iconics.view.IconicsImageView
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                app:iiv_color="@android:color/white"
+                app:iiv_icon="faw_phone" />
+
+            <EditText
+                android:id="@+id/edit_phone"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="10dp"
+                android:backgroundTint="@android:color/white"
+                android:hint="@string/phone_name"
+                android:imeOptions="actionNext"
+                android:inputType="phone"
+                android:textColor="@android:color/white"
+                android:textColorHint="@color/colorHint"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+
         <com.example.myloadingbutton.MyLoadingButton
-            android:id="@+id/btn_login"
-            android:layout_below="@id/linear_password"
+            android:id="@+id/btn_signup"
+            android:layout_below="@id/linear_email"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="48dp"

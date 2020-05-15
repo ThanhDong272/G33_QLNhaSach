@@ -37,6 +37,7 @@
                 app:iiv_icon="faw_user" />
 
             <EditText
+                android:id="@+id/edit_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -66,6 +67,7 @@
                 app:iiv_icon="faw_key" />
 
             <EditText
+                android:id="@+id/edit_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
@@ -80,6 +82,7 @@
         </LinearLayout>
 
         <com.rey.material.widget.CheckBox
+            android:id="@+id/checkbox_rememberme"
             style="@style/Material.Drawable.CheckBox"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -130,7 +133,8 @@
             android:text="@string/admin_name"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:textStyle="bold" />
+            android:textStyle="bold"
+            android:visibility="invisible"/>
 
         <TextView
             android:id="@+id/not_admin_panel_link"

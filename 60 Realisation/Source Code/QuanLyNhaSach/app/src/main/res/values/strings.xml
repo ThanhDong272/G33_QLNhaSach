@@ -11,5 +11,5 @@
     <string name="not_admin_name">I\'m not an Admin</string>
 
     <!--    SignUp Screen-->
-    <string name="email_name">Email</string>
+    <string name="phone_name">Phone</string>
 </resources>
