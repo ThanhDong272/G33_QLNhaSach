@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.qat.android.quanlynhasach.R;
+import com.qat.android.quanlynhasach.admin.CategoryActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Users;
 import com.rey.material.widget.CheckBox;
@@ -31,6 +32,7 @@ public class LoginActivity extends AppCompatActivity {
     private MyLoadingButton mBtnLogin;
     private TextView mTxtNoAccount;
     private CheckBox mCheckBoxRememberMe;
+    private TextView mTxtAdmin, mTxtNotAdmin;
 
     private String parentDbName = "Users";
 
@@ -47,6 +49,9 @@ public class LoginActivity extends AppCompatActivity {
         mTxtNoAccount = findViewById(R.id.txt_noAccount);
         mCheckBoxRememberMe = findViewById(R.id.checkbox_rememberme);
         Paper.init(this);
+
+        mTxtAdmin = findViewById(R.id.txt_admin);
+        mTxtNotAdmin = findViewById(R.id.txt_not_admin);
 
         loadingBar = new ProgressDialog(this);
 
@@ -78,6 +83,26 @@ public class LoginActivity extends AppCompatActivity {
                 loadingBar.show();
             }
         }
+
+        mTxtAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBtnLogin.setButtonLabel("Login Admin");
+                mTxtAdmin.setVisibility(View.INVISIBLE);
+                mTxtNotAdmin.setVisibility(View.VISIBLE);
+                parentDbName = "Admins";
+            }
+        });
+
+        mTxtNotAdmin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                mBtnLogin.setButtonLabel("Login");
+                mTxtAdmin.setVisibility(View.VISIBLE);
+                mTxtNotAdmin.setVisibility(View.INVISIBLE);
+                parentDbName = "Users";
+            }
+        });
     }
 
     private void LoginUser() {
@@ -112,14 +137,12 @@ public class LoginActivity extends AppCompatActivity {
 
                     if (usersData.getUsername().equals(username)) {
                         if (usersData.getPassword().equals(password)) {
-//                            if (parentDbName.equals("Admins")) {
-//                                Toast.makeText(LoginActivity.this, "Welcome Admin, you are logged in Successfully...", Toast.LENGTH_SHORT).show();
-//                                LoginButton.showNormalButton();
-//
-//                                Intent intent = new Intent(LoginActivity.this, AdminCategoryActivity.class);
-//                                startActivity(intent);
-//                            }
-                            if (parentDbName.equals("Users")) {
+                            if (parentDbName.equals("Admins")) {
+                                Toast.makeText(LoginActivity.this, "Welcome Admin, you are logged in successfully", Toast.LENGTH_SHORT).show();
+                                mBtnLogin.showNormalButton();
+                                Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+                                startActivity(intent);
+                            } else if (parentDbName.equals("Users")) {
                                 mBtnLogin.showNormalButton();
 
                                 Intent intent = new Intent(LoginActivity.this, MainActivity.class);

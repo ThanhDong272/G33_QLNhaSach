@@ -44,7 +44,7 @@
                 android:backgroundTint="@android:color/white"
                 android:hint="@string/user_name"
                 android:imeOptions="actionNext"
-                android:inputType="textEmailAddress"
+                android:inputType="text"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/colorHint"
                 android:textSize="16sp" />
@@ -123,7 +123,7 @@
             app:mlb_setNormalAfterError="false" />
 
         <TextView
-            android:id="@+id/admin_panel_link"
+            android:id="@+id/txt_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginEnd="4dp"
@@ -133,11 +133,10 @@
             android:text="@string/admin_name"
             android:textColor="@android:color/white"
             android:textSize="14sp"
-            android:textStyle="bold"
-            android:visibility="invisible"/>
+            android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/not_admin_panel_link"
+            android:id="@+id/txt_not_admin"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="4dp"
