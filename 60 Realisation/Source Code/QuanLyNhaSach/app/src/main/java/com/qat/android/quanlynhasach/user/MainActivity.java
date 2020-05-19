@@ -1,4 +1,4 @@
-package com.qat.android.quanlynhasach.activity;
+package com.qat.android.quanlynhasach.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.ActionBarDrawerToggle;
@@ -10,35 +10,23 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.qat.android.quanlynhasach.R;
-import com.qat.android.quanlynhasach.constants.Constants;
-import com.qat.android.quanlynhasach.fragment.CartFragment;
-import com.qat.android.quanlynhasach.fragment.HomeFragment;
-import com.qat.android.quanlynhasach.fragment.SettingsFragment;
-import com.squareup.picasso.Picasso;
+import com.qat.android.quanlynhasach.user_fragment.CartFragment;
+import com.qat.android.quanlynhasach.user_fragment.HomeFragment;
+import com.qat.android.quanlynhasach.user_fragment.SettingsFragment;
 
-import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
-    private String type = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-//        Intent intent = getIntent();
-//        Bundle bundle = intent.getExtras();
-//        if (bundle != null) {
-//            type = getIntent().getExtras().get("Admins").toString();
-//        }
 
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -84,9 +72,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_cart:
-//                if (!type.equals("Admins")) {
-//
-//                }
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new CartFragment())
@@ -94,9 +79,6 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_settings:
-//                if (!type.equals("Admins")) {
-//
-//                }
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new SettingsFragment())

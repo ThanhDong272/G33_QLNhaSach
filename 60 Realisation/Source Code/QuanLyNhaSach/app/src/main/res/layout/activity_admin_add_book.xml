@@ -5,7 +5,15 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".admin.AddProductActivity">
+    tools:context=".admin.AddBookActivity">
+
+    <ImageView
+        android:id="@+id/image_ariana"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="centerCrop"
+        android:alpha="0.2"
+        android:src="@drawable/background_login" />
 
     <ImageView
         android:id="@+id/img_camera"
@@ -20,7 +28,8 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true"
+        android:layout_below="@id/img_camera"
+        android:layout_marginTop="60dp"
         android:orientation="vertical">
 
         <EditText
@@ -42,10 +51,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
             android:hint="@string/product_price"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_product_quantity"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/product_quantity"
+            android:imeOptions="actionNext"
+            android:inputType="number"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_product_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/product_author"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textColor="@android:color/white"
@@ -57,7 +96,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
             android:hint="@string/product_description"
@@ -91,7 +130,7 @@
         android:gravity="center|bottom"
         android:layout_marginBottom="40dp"
         app:mlb_backgroundColor="@android:color/white"
-        app:mlb_label="Add Product"
+        app:mlb_label="Add Book"
         app:mlb_labelColor="@color/colorPrimary"
         app:mlb_labelSize="5sp"
         app:mlb_loaderColor="@color/colorPrimary"

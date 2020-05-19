@@ -29,12 +29,12 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class AddProductActivity extends AppCompatActivity {
+public class AddBookActivity extends AppCompatActivity {
 
-    private String mCategoryName, mDescription, mPrice, mProductName, mSaveCurrentDate, mSaveCurrentTime;
+    private String mCategoryName, mDescription, mPrice, mQuantity, mAuthor, mProductName, mSaveCurrentDate, mSaveCurrentTime;
     private MyLoadingButton mBtnAddProduct;
     private ImageView mImgProduct;
-    private EditText mEditTextProductName, mEditTextProductPrice, mEditTextProductDescription;
+    private EditText mEditTextProductName, mEditTextProductPrice, mEditTextProductQuantity, mEditTextProductAuthor, mEditTextProductDescription;
     private static final int mGalleryPick = 1;
     private Uri mImgUri;
     private String mProductRandomKey, mDownloadImgUrl;
@@ -44,7 +44,7 @@ public class AddProductActivity extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_admin_add_product);
+        setContentView(R.layout.activity_admin_add_book);
 
         mCategoryName = getIntent().getExtras().get("category").toString();
         mProductImgRef = FirebaseStorage.getInstance().getReference().child("Product Images");
@@ -56,6 +56,8 @@ public class AddProductActivity extends AppCompatActivity {
 
         mEditTextProductName = findViewById(R.id.edit_product_name);
         mEditTextProductPrice = findViewById(R.id.edit_product_price);
+        mEditTextProductQuantity = findViewById(R.id.edit_product_quantity);
+        mEditTextProductAuthor = findViewById(R.id.edit_product_author);
         mEditTextProductDescription = findViewById(R.id.edit_product_description);
 
         mImgProduct.setOnClickListener(new View.OnClickListener() {
@@ -95,19 +97,27 @@ public class AddProductActivity extends AppCompatActivity {
     private void ValidateProductData() {
         mProductName = mEditTextProductName.getText().toString();
         mPrice = mEditTextProductPrice.getText().toString();
+        mQuantity = mEditTextProductQuantity.getText().toString();
+        mAuthor = mEditTextProductAuthor.getText().toString();
         mDescription = mEditTextProductDescription.getText().toString();
 
         if (mImgUri == null) {
-            Toast.makeText(this, "Product image is mandatory", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Book image is mandatory", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
         } else if (TextUtils.isEmpty(mProductName) || mEditTextProductName.length() <= 5) {
-            Toast.makeText(this, "Product name must not be less than 5 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Book name must not be less than 5 characters", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
         } else if (TextUtils.isEmpty(mPrice) || mEditTextProductPrice.length() <= 3 || mEditTextProductPrice.length() >= 7) {
-            Toast.makeText(this, "Product price must be 4 to 6 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Book price must be 4 to 6 characters", Toast.LENGTH_SHORT).show();
+            mBtnAddProduct.showNormalButton();
+        } else if (TextUtils.isEmpty(mQuantity)) {
+            Toast.makeText(this, "Book quantity must not be null", Toast.LENGTH_SHORT).show();
+            mBtnAddProduct.showNormalButton();
+        } else if (TextUtils.isEmpty(mAuthor)) {
+            Toast.makeText(this, "Author must not be null", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
         } else if (TextUtils.isEmpty(mDescription) || mEditTextProductDescription.length() <= 10) {
-            Toast.makeText(this, "Product description must not be less than 10 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Book description must not be less than 10 characters", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
         } else {
             StoreProductInformation();
@@ -135,13 +145,13 @@ public class AddProductActivity extends AppCompatActivity {
             @Override
             public void onFailure(@NonNull Exception e) {
                 String message = e.toString();
-                Toast.makeText(AddProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddBookActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                 mBtnAddProduct.showNormalButton();
             }
         }).addOnSuccessListener(new OnSuccessListener<UploadTask.TaskSnapshot>() {
             @Override
             public void onSuccess(UploadTask.TaskSnapshot taskSnapshot) {
-                Toast.makeText(AddProductActivity.this, "Product image uploaded successfully", Toast.LENGTH_SHORT).show();
+                Toast.makeText(AddBookActivity.this, "Book image uploaded successfully", Toast.LENGTH_SHORT).show();
 
                 Task<Uri> urlTask = uploadTask.continueWithTask(new Continuation<UploadTask.TaskSnapshot, Task<Uri>>() {
                     @Override
@@ -176,21 +186,23 @@ public class AddProductActivity extends AppCompatActivity {
         productMap.put("image", mDownloadImgUrl);
         productMap.put("category", mCategoryName);
         productMap.put("price", mPrice);
+        productMap.put("quantity", mQuantity);
+        productMap.put("author", mAuthor);
         productMap.put("pname", mProductName);
 
         mProductRef.child(mProductRandomKey).updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(AddProductActivity.this, CategoryActivity.class);
+                    Intent intent = new Intent(AddBookActivity.this, MainAdminActivity.class);
                     startActivity(intent);
 
                     mBtnAddProduct.showNormalButton();
-                    Toast.makeText(AddProductActivity.this, "Product is added successfully", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBookActivity.this, "Book is added successfully", Toast.LENGTH_SHORT).show();
                 } else {
                     mBtnAddProduct.showNormalButton();
                     String message = task.getException().toString();
-                    Toast.makeText(AddProductActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(AddBookActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
                 }
             }
         });

@@ -1,4 +1,4 @@
-package com.qat.android.quanlynhasach.activity;
+package com.qat.android.quanlynhasach.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
@@ -19,7 +19,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.qat.android.quanlynhasach.R;
-import com.qat.android.quanlynhasach.admin.CategoryActivity;
+import com.qat.android.quanlynhasach.admin.MainAdminActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Users;
 import com.rey.material.widget.CheckBox;
@@ -140,7 +140,7 @@ public class LoginActivity extends AppCompatActivity {
                             if (parentDbName.equals("Admins")) {
                                 Toast.makeText(LoginActivity.this, "Welcome Admin, you are logged in successfully", Toast.LENGTH_SHORT).show();
                                 mBtnLogin.showNormalButton();
-                                Intent intent = new Intent(LoginActivity.this, CategoryActivity.class);
+                                Intent intent = new Intent(LoginActivity.this, MainAdminActivity.class);
                                 startActivity(intent);
                             } else if (parentDbName.equals("Users")) {
                                 mBtnLogin.showNormalButton();

@@ -6,4 +6,6 @@
 
     <color name="colorDark">#1b0045</color>
     <color name="colorHint">#7fffffff</color>
+
+    <color name="color_border">#EAEAEA</color>
 </resources>

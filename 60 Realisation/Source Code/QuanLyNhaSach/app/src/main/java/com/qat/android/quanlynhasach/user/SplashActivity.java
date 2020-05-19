@@ -1,4 +1,4 @@
-package com.qat.android.quanlynhasach.activity;
+package com.qat.android.quanlynhasach.user;
 
 import androidx.appcompat.app.AppCompatActivity;
 

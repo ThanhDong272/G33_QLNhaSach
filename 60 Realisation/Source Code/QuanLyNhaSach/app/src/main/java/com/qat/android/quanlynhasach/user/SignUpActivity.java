@@ -1,10 +1,9 @@
-package com.qat.android.quanlynhasach.activity;
+package com.qat.android.quanlynhasach.user;
 
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;

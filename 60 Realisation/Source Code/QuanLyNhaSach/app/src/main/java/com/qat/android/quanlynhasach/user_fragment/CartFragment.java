@@ -1,4 +1,4 @@
-package com.qat.android.quanlynhasach.fragment;
+package com.qat.android.quanlynhasach.user_fragment;
 
 import android.os.Bundle;
 
