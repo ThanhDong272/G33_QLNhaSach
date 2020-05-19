@@ -7,14 +7,19 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -22,7 +27,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.MaintainBookActivity;
-import com.qat.android.quanlynhasach.models.Products;
+import com.qat.android.quanlynhasach.models.Books;
 import com.qat.android.quanlynhasach.view_holder.BookViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -68,15 +73,14 @@ public class HomeAdminFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
-        FirebaseRecyclerOptions<Products> options = new FirebaseRecyclerOptions.Builder<Products>()
-                .setQuery(ProductsRef, Products.class)
+        FirebaseRecyclerOptions<Books> options = new FirebaseRecyclerOptions.Builder<Books>()
+                .setQuery(ProductsRef, Books.class)
                 .build();
 
-
-        FirebaseRecyclerAdapter<Products, BookViewHolder> adapter = new FirebaseRecyclerAdapter<Products, BookViewHolder>(options) {
+        FirebaseRecyclerAdapter<Books, BookViewHolder> adapter = new FirebaseRecyclerAdapter<Books, BookViewHolder>(options) {
             @SuppressLint("SetTextI18n")
             @Override
-            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Products model) {
+            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Books model) {
                 holder.txtBookName.setText(model.getPname());
                 holder.txtBookPrice.setText(model.getPrice() + "₫");
                 Picasso.get().load(model.getImage()).into(holder.imageView);
@@ -84,13 +88,6 @@ public class HomeAdminFragment extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-//                        if (type.equals("Admins")) {
-//
-//                        } else {
-//                            Intent intent = new Intent(getContext(), ProductDetailsActivity.class);
-//                            intent.putExtra("pid", model.getPid());
-//                            startActivity(intent);
-//                        }
                         Intent intent = new Intent(getContext(), MaintainBookActivity.class);
                         intent.putExtra("pid", model.getPid());
                         startActivity(intent);
@@ -109,4 +106,5 @@ public class HomeAdminFragment extends Fragment {
         mRecyclerView.setAdapter(adapter);
         adapter.startListening();
     }
+
 }

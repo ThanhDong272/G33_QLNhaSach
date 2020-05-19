@@ -13,6 +13,7 @@ import android.view.MenuItem;
 
 import com.google.android.material.navigation.NavigationView;
 import com.qat.android.quanlynhasach.R;
+import com.qat.android.quanlynhasach.admin_fragment.AccountListFragment;
 import com.qat.android.quanlynhasach.admin_fragment.CategoryAdminFragment;
 import com.qat.android.quanlynhasach.admin_fragment.SettingsAdminFragment;
 import com.qat.android.quanlynhasach.user.LoginActivity;
@@ -78,6 +79,13 @@ public class MainAdminActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new CategoryAdminFragment())
+                        .commit();
+                break;
+
+            case R.id.nav_account_list:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new AccountListFragment())
                         .commit();
                 break;
 

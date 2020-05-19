@@ -1,13 +1,13 @@
 package com.qat.android.quanlynhasach.models;
 
-public class Products {
+public class Books {
     private String pname, description, price, quantity, author, image, category, pid, date, time;
 
-    public Products() {
+    public Books() {
 
     }
 
-    public Products(String pname, String description, String price, String quantity, String author, String image, String category, String pid, String date, String time) {
+    public Books(String pname, String description, String price, String quantity, String author, String image, String category, String pid, String date, String time) {
         this.pname = pname;
         this.description = description;
         this.price = price;

@@ -21,6 +21,7 @@
 
     <!--    Admin Drawer Menu-->
     <string name="category_title">Category</string>
+    <string name="account_list_title">List Accounts</string>
 
     <!--    Navigation Drawer-->
     <string name="navigation_drawer_open">Open navigation drawer</string>
@@ -54,4 +55,11 @@
     <!--    Item Book-->
     <string name="item_book_name">Book name</string>
     <string name="item_book_price">Book price</string>
+
+    <!--    Detail Book-->
+    <string name="book_detail_name">Details</string>
+    <string name="book_category_name">Category</string>
+    <string name="book_author_name">Author</string>
+    <string name="add_to_cart_name">Add to cart</string>
+    <string name="add_to_borrow_name">Add to borrow</string>
 </resources>
