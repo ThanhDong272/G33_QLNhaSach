@@ -4,21 +4,34 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".admin_fragment.AccountListFragment">
+    tools:context=".admin_fragment.NewOrdersFragment">
 
     <ImageView
         android:id="@+id/image_ariana"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scaleType="centerCrop"
         android:alpha="0.2"
+        android:scaleType="centerCrop"
         android:src="@drawable/background_login" />
 
+    <TextView
+        android:id="@+id/txt_new_orders"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_gravity="center"
+        android:layout_marginTop="40dp"
+        android:fontFamily="@font/gitchgitch"
+        android:text="@string/new_orders_name"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/recycler_menu_account_list"
+        android:id="@+id/recycler_menu_new_orders"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:scrollbars="vertical">
+        android:layout_below="@+id/txt_new_orders"
+        android:layout_marginTop="16dp">
 
     </androidx.recyclerview.widget.RecyclerView>
 

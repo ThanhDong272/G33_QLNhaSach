@@ -1,18 +1,19 @@
 package com.qat.android.quanlynhasach.models;
 
 public class Books {
-    private String pname, description, price, quantity, author, image, category, pid, date, time;
+    private String pname, description, price, quantity, author, releaseDate, image, category, pid, date, time;
 
     public Books() {
 
     }
 
-    public Books(String pname, String description, String price, String quantity, String author, String image, String category, String pid, String date, String time) {
+    public Books(String pname, String description, String price, String quantity, String author, String releaseDate, String image, String category, String pid, String date, String time) {
         this.pname = pname;
         this.description = description;
         this.price = price;
         this.quantity = quantity;
         this.author = author;
+        this.releaseDate = releaseDate;
         this.image = image;
         this.category = category;
         this.pid = pid;
@@ -58,6 +59,14 @@ public class Books {
 
     public void setAuthor(String author) {
         this.author = author;
+    }
+
+    public String getReleaseDate() {
+        return releaseDate;
+    }
+
+    public void setReleaseDate(String releaseDate) {
+        this.releaseDate = releaseDate;
     }
 
     public String getImage() {

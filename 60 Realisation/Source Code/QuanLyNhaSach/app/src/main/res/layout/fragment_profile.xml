@@ -5,24 +5,33 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/gradient_background"
-    tools:context=".admin.MaintainBookActivity">
+    tools:context=".user_fragment.ProfileFragment">
+
+    <ImageView
+        android:id="@+id/image_ariana"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_login" />
 
     <LinearLayout
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/card_view"
-        android:layout_marginTop="32dp"
+        android:layout_below="@id/img_profile"
+        android:layout_marginTop="80dp"
         android:orientation="vertical">
 
         <EditText
-            android:id="@+id/edit_book_name"
+            android:id="@+id/edit_full_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
-            android:hint="@string/product_name"
+            android:hint="@string/fullname_name"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textColor="@android:color/white"
@@ -30,29 +39,14 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edit_book_price"
+            android:id="@+id/edit_sex"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
-            android:hint="@string/product_price"
-            android:imeOptions="actionNext"
-            android:inputType="number"
-            android:textColor="@android:color/white"
-            android:textColorHint="@color/colorHint"
-            android:textSize="16sp" />
-
-        <EditText
-            android:id="@+id/edit_book_author"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="20dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginEnd="20dp"
-            android:backgroundTint="@android:color/white"
-            android:hint="@string/product_author"
+            android:hint="@string/sex_name"
             android:imeOptions="actionNext"
             android:inputType="text"
             android:textColor="@android:color/white"
@@ -60,87 +54,73 @@
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edit_book_release_date"
+            android:id="@+id/edit_phone_number"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
-            android:hint="@string/product_release_date"
+            android:hint="@string/phonenumber_name"
             android:imeOptions="actionNext"
-            android:inputType="datetime"
+            android:inputType="phone"
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
             android:textSize="16sp" />
 
         <EditText
-            android:id="@+id/edit_book_description"
+            android:id="@+id/edit_address"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginStart="20dp"
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
-            android:hint="@string/product_description"
+            android:hint="@string/address_name"
             android:imeOptions="actionNext"
             android:inputType="text"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/email_name"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
             android:textSize="16sp" />
 
     </LinearLayout>
 
-
-    <androidx.cardview.widget.CardView
-        android:id="@+id/card_view"
-        android:layout_width="208dp"
-        android:layout_height="248dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        app:cardCornerRadius="8dp"
-        app:cardElevation="0dp">
-
-        <ImageView
-            android:id="@+id/book_image_maintain"
-            android:layout_width="200dp"
-            android:layout_height="240dp"
-            android:layout_gravity="center_horizontal"
-            android:layout_margin="4dp"
-            android:background="@drawable/stroke_items_view"
-            android:scaleType="centerCrop" />
-
-    </androidx.cardview.widget.CardView>
-
     <com.example.myloadingbutton.MyLoadingButton
-        android:id="@+id/btn_apply_changes"
+        android:id="@+id/btn_update_profile"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
+        android:layout_height="48dp"
         android:layout_below="@id/linear"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="32dp"
+        android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
         app:mlb_backgroundColor="@android:color/white"
-        app:mlb_label="Apply changes"
+        app:mlb_label="Update Profile"
         app:mlb_labelColor="@color/colorPrimary"
         app:mlb_labelSize="5sp"
         app:mlb_loaderColor="@color/colorPrimary"
         app:mlb_setNormalAfterError="false" />
 
-    <com.example.myloadingbutton.MyLoadingButton
-        android:id="@+id/btn_delete"
-        android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_below="@id/btn_apply_changes"
-        android:layout_marginStart="20dp"
-        android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
-        app:mlb_backgroundColor="@android:color/white"
-        app:mlb_label="Delete this book"
-        app:mlb_labelColor="@color/colorPrimary"
-        app:mlb_labelSize="5sp"
-        app:mlb_loaderColor="@color/colorPrimary"
-        app:mlb_setNormalAfterError="false" />
-
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/img_profile"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="40dp"
+        android:src="@drawable/img_profile" />
 
 </RelativeLayout>

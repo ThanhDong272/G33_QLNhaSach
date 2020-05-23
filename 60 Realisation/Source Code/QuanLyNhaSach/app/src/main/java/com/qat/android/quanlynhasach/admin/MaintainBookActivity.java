@@ -25,7 +25,8 @@ import java.util.HashMap;
 public class MaintainBookActivity extends AppCompatActivity {
 
     private MyLoadingButton mBtnApplyChanges, mBtnDelete;
-    private EditText mEditTextBookName, mEditTextBookPrice, mEditTextBookQuantity, mEditTextBookAuthor, mEditTextBookDescription;
+    private EditText mEditTextBookName, mEditTextBookPrice, mEditTextBookAuthor,
+            mEditTextBookReleaseDate, mEditTextBookDescription;
     private ImageView mImageView;
 
     private String productID = "";
@@ -41,8 +42,8 @@ public class MaintainBookActivity extends AppCompatActivity {
 
         mEditTextBookName = findViewById(R.id.edit_book_name);
         mEditTextBookPrice = findViewById(R.id.edit_book_price);
-        mEditTextBookQuantity = findViewById(R.id.edit_book_quantity);
         mEditTextBookAuthor = findViewById(R.id.edit_book_author);
+        mEditTextBookReleaseDate = findViewById(R.id.edit_book_release_date);
         mEditTextBookDescription = findViewById(R.id.edit_book_description);
 
         mImageView = findViewById(R.id.book_image_maintain);
@@ -83,8 +84,8 @@ public class MaintainBookActivity extends AppCompatActivity {
     private void applyChanges() {
         String name = mEditTextBookName.getText().toString();
         String price = mEditTextBookPrice.getText().toString();
-        String quantity = mEditTextBookQuantity.getText().toString();
         String author = mEditTextBookAuthor.getText().toString();
+        String release = mEditTextBookReleaseDate.getText().toString();
         String description = mEditTextBookDescription.getText().toString();
 
         if (name.equals("") || mEditTextBookName.length() <= 5) {
@@ -93,11 +94,11 @@ public class MaintainBookActivity extends AppCompatActivity {
         } else if (price.equals("") || mEditTextBookPrice.length() <= 3 || mEditTextBookPrice.length() >= 7) {
             Toast.makeText(this, "Book price must be 4 to 6 characters", Toast.LENGTH_SHORT).show();
             mBtnApplyChanges.showNormalButton();
-        } else if (quantity.equals("")) {
-            Toast.makeText(this, "Book quantity must not be null", Toast.LENGTH_SHORT).show();
-            mBtnApplyChanges.showNormalButton();
         } else if (author.equals("")) {
             Toast.makeText(this, "Author must not be null", Toast.LENGTH_SHORT).show();
+            mBtnApplyChanges.showNormalButton();
+        } else if (release.equals("")) {
+            Toast.makeText(this, "Release Date must not be null", Toast.LENGTH_SHORT).show();
             mBtnApplyChanges.showNormalButton();
         } else if (description.equals("") || mEditTextBookDescription.length() <= 10) {
             Toast.makeText(this, "Book description must not be less than 10 characters", Toast.LENGTH_SHORT).show();
@@ -107,8 +108,8 @@ public class MaintainBookActivity extends AppCompatActivity {
             productMap.put("pid", productID);
             productMap.put("pname", name);
             productMap.put("price", price);
-            productMap.put("quantity", quantity);
             productMap.put("author", author);
+            productMap.put("release_date", release);
             productMap.put("description", description);
 
             productsRef.updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {
@@ -132,15 +133,15 @@ public class MaintainBookActivity extends AppCompatActivity {
                 if (dataSnapshot.exists()) {
                     String pName = dataSnapshot.child("pname").getValue().toString();
                     String pPrice = dataSnapshot.child("price").getValue().toString();
-                    String pQuantity = dataSnapshot.child("quantity").getValue().toString();
                     String pAuthor = dataSnapshot.child("author").getValue().toString();
+                    String pReleaseDate = dataSnapshot.child("release_date").getValue().toString();
                     String pDescription = dataSnapshot.child("description").getValue().toString();
                     String pImage = dataSnapshot.child("image").getValue().toString();
 
                     mEditTextBookName.setText(pName);
                     mEditTextBookPrice.setText(pPrice);
-                    mEditTextBookQuantity.setText(pQuantity);
                     mEditTextBookAuthor.setText(pAuthor);
+                    mEditTextBookReleaseDate.setText(pReleaseDate);
                     mEditTextBookDescription.setText(pDescription);
                     Picasso.get().load(pImage).into(mImageView);
                 }

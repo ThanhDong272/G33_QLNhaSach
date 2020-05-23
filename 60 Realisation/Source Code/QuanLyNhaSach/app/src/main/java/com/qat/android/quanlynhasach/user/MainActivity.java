@@ -10,13 +10,18 @@ import androidx.drawerlayout.widget.DrawerLayout;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
 import com.qat.android.quanlynhasach.R;
+import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.user_fragment.CartFragment;
 import com.qat.android.quanlynhasach.user_fragment.HomeFragment;
-import com.qat.android.quanlynhasach.user_fragment.SettingsFragment;
+import com.qat.android.quanlynhasach.user_fragment.ProfileFragment;
+import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
 import io.paperdb.Paper;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
@@ -43,13 +48,11 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         toggle.syncState();
 
         // Get username and image from firebase
-//        View headerView = navigationView.getHeaderView(0);
-//        TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
-//        CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
-//        if (!type.equals("Admins")) {
-//            userNameTextView.setText(Constants.currentOnlineUser.getUsername());
-//            Picasso.get().load(Constants.currentOnlineUser.getImage()).placeholder(R.drawable.img_profile).into(profileImageView);
-//        }
+        View headerView = navigationView.getHeaderView(0);
+        TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
+        CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
+        userNameTextView.setText(Constants.currentOnlineUser.getUsername());
+        Picasso.get().load(Constants.currentOnlineUser.getImage()).placeholder(R.drawable.img_profile).into(profileImageView);
 
         // Open home fragment
         if (savedInstanceState == null) {
@@ -81,7 +84,7 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
             case R.id.nav_settings:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new SettingsFragment())
+                        .replace(R.id.fragment_container, new ProfileFragment())
                         .commit();
                 break;
 

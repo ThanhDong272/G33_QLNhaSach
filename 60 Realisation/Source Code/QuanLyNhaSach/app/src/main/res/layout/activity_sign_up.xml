@@ -82,7 +82,7 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_email"
+            android:id="@+id/linear_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="28dp"
@@ -94,17 +94,17 @@
                 android:layout_width="24dp"
                 android:layout_height="24dp"
                 app:iiv_color="@android:color/white"
-                app:iiv_icon="faw_phone" />
+                app:iiv_icon="faw_key" />
 
             <EditText
-                android:id="@+id/edit_phone"
+                android:id="@+id/edit_confirm_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="10dp"
                 android:backgroundTint="@android:color/white"
-                android:hint="@string/phone_name"
+                android:hint="@string/confirm_password_name"
                 android:imeOptions="actionNext"
-                android:inputType="phone"
+                android:inputType="textPassword"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/colorHint"
                 android:textSize="16sp" />
@@ -113,7 +113,7 @@
 
         <com.example.myloadingbutton.MyLoadingButton
             android:id="@+id/btn_signup"
-            android:layout_below="@id/linear_email"
+            android:layout_below="@id/linear_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="52dp"
             android:layout_marginTop="48dp"

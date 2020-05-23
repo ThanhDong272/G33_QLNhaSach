@@ -7,19 +7,14 @@ import android.os.Bundle;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.SearchView;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.GridLayoutManager;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -81,8 +76,8 @@ public class HomeAdminFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Books model) {
-                holder.txtBookName.setText(model.getPname());
-                holder.txtBookPrice.setText(model.getPrice() + "₫");
+                holder.mTxtBookName.setText(model.getPname());
+                holder.mTxtBookPrice.setText(model.getPrice() + "₫");
                 Picasso.get().load(model.getImage()).into(holder.imageView);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

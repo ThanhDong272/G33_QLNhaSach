@@ -11,7 +11,7 @@ import com.qat.android.quanlynhasach.R;
 
 public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
 {
-    public TextView txtBookName, txtBookPrice;
+    public TextView mTxtBookName, mTxtBookPrice;
     public ImageView imageView;
     public ItemClickListener listener;
 
@@ -20,8 +20,8 @@ public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         super(itemView);
 
         imageView = itemView.findViewById(R.id.img_book_item);
-        txtBookName = itemView.findViewById(R.id.txt_book_item_name);
-        txtBookPrice = itemView.findViewById(R.id.txt_book_item_price);
+        mTxtBookName = itemView.findViewById(R.id.txt_book_item_name);
+        mTxtBookPrice = itemView.findViewById(R.id.txt_book_item_price);
     }
 
     public void setItemClickListener(ItemClickListener listener)

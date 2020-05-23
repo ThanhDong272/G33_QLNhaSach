@@ -31,10 +31,12 @@ import java.util.HashMap;
 
 public class AddBookActivity extends AppCompatActivity {
 
-    private String mCategoryName, mDescription, mPrice, mQuantity, mAuthor, mProductName, mSaveCurrentDate, mSaveCurrentTime;
+    private String mCategoryName, mDescription, mPrice, mQuantity, mAuthor,
+            mReleaseDate, mProductName, mSaveCurrentDate, mSaveCurrentTime;
     private MyLoadingButton mBtnAddProduct;
     private ImageView mImgProduct;
-    private EditText mEditTextProductName, mEditTextProductPrice, mEditTextProductQuantity, mEditTextProductAuthor, mEditTextProductDescription;
+    private EditText mEditTextProductName, mEditTextProductPrice,
+            mEditTextProductAuthor, mEditTextProductReleaseDate, mEditTextProductDescription;
     private static final int mGalleryPick = 1;
     private Uri mImgUri;
     private String mProductRandomKey, mDownloadImgUrl;
@@ -56,8 +58,8 @@ public class AddBookActivity extends AppCompatActivity {
 
         mEditTextProductName = findViewById(R.id.edit_product_name);
         mEditTextProductPrice = findViewById(R.id.edit_product_price);
-        mEditTextProductQuantity = findViewById(R.id.edit_product_quantity);
         mEditTextProductAuthor = findViewById(R.id.edit_product_author);
+        mEditTextProductReleaseDate = findViewById(R.id.edit_product_release_date);
         mEditTextProductDescription = findViewById(R.id.edit_product_description);
 
         mImgProduct.setOnClickListener(new View.OnClickListener() {
@@ -97,8 +99,8 @@ public class AddBookActivity extends AppCompatActivity {
     private void ValidateProductData() {
         mProductName = mEditTextProductName.getText().toString();
         mPrice = mEditTextProductPrice.getText().toString();
-        mQuantity = mEditTextProductQuantity.getText().toString();
         mAuthor = mEditTextProductAuthor.getText().toString();
+        mReleaseDate = mEditTextProductReleaseDate.getText().toString();
         mDescription = mEditTextProductDescription.getText().toString();
 
         if (mImgUri == null) {
@@ -110,11 +112,11 @@ public class AddBookActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(mPrice) || mEditTextProductPrice.length() <= 3 || mEditTextProductPrice.length() >= 7) {
             Toast.makeText(this, "Book price must be 4 to 6 characters", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
-        } else if (TextUtils.isEmpty(mQuantity)) {
-            Toast.makeText(this, "Book quantity must not be null", Toast.LENGTH_SHORT).show();
-            mBtnAddProduct.showNormalButton();
-        } else if (TextUtils.isEmpty(mAuthor)) {
+        }  else if (TextUtils.isEmpty(mAuthor)) {
             Toast.makeText(this, "Author must not be null", Toast.LENGTH_SHORT).show();
+            mBtnAddProduct.showNormalButton();
+        } else if (TextUtils.isEmpty(mReleaseDate)) {
+            Toast.makeText(this, "Release Date must not be null", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
         } else if (TextUtils.isEmpty(mDescription) || mEditTextProductDescription.length() <= 10) {
             Toast.makeText(this, "Book description must not be less than 10 characters", Toast.LENGTH_SHORT).show();
@@ -186,8 +188,8 @@ public class AddBookActivity extends AppCompatActivity {
         productMap.put("image", mDownloadImgUrl);
         productMap.put("category", mCategoryName);
         productMap.put("price", mPrice);
-        productMap.put("quantity", mQuantity);
         productMap.put("author", mAuthor);
+        productMap.put("release_date", mReleaseDate);
         productMap.put("pname", mProductName);
 
         mProductRef.child(mProductRandomKey).updateChildren(productMap).addOnCompleteListener(new OnCompleteListener<Void>() {

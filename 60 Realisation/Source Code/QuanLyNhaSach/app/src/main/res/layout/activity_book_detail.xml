@@ -15,76 +15,59 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="80dp"
-            android:layout_below="@+id/btn_number"
-            android:layout_marginTop="20dp"
+            android:layout_below="@+id/relative_description"
+            android:layout_marginTop="40dp"
             android:background="@color/colorPrimary"
             android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btn_add_to_cart"
-                android:layout_width="wrap_content"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginStart="8dp"
                 android:layout_marginTop="16dp"
                 android:layout_marginEnd="8dp"
-                android:layout_weight="1"
                 android:background="@drawable/button_white"
                 android:text="@string/add_to_cart_name"
                 android:textAllCaps="false"
                 android:textColor="@color/colorPrimary" />
 
-            <Button
-                android:id="@+id/btn_add_to_borrow"
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_book_detail_name"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="8dp"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/txt_book_detail_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginStart="8dp"
-                android:layout_marginTop="16dp"
-                android:layout_marginEnd="8dp"
-                android:layout_weight="1"
-                android:background="@drawable/button_white"
-                android:text="@string/add_to_borrow_name"
-                android:textAllCaps="false"
-                android:textColor="@color/colorPrimary" />
+                android:text="@string/product_price"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="2dp"
+                android:text="₫"
+                android:textColor="@android:color/white"
+                android:textSize="16sp"
+                android:textStyle="bold" />
 
         </LinearLayout>
 
         <RelativeLayout
-            android:id="@+id/relative_description"
-            android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_below="@id/relative_details"
-            android:layout_marginTop="20dp"
-            android:background="@android:color/white">
-
-            <TextView
-                android:id="@+id/txt_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="12dp"
-                android:text="@string/product_description"
-                android:textColor="@color/colorPrimary"
-                android:textSize="20sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/txt_book_detail_description"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@id/txt_description"
-                android:layout_marginStart="20dp"
-                android:layout_marginTop="8dp"
-                android:text="@string/product_description"
-                android:textColor="@color/colorPrimary"
-                android:textSize="16sp" />
-
-        </RelativeLayout>
-
-        <RelativeLayout
             android:id="@+id/relative_details"
             android:layout_width="match_parent"
-            android:layout_height="120dp"
-            android:layout_below="@id/txt_book_detail_price"
+            android:layout_height="148dp"
+            android:layout_below="@id/btn_number"
             android:layout_marginTop="32dp"
             android:background="@android:color/white">
 
@@ -118,6 +101,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/linear_author"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/linear_category">
@@ -143,6 +127,32 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/linear_author">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/book_release_date_name"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/txt_book_detail_release_date"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginStart="20dp"
+                    android:layout_marginTop="8dp"
+                    android:text="@string/book_release_date_name"
+                    android:textColor="@color/colorPrimary"
+                    android:textSize="16sp" />
+
+            </LinearLayout>
+
             <TextView
                 android:id="@+id/txt_details"
                 android:layout_width="wrap_content"
@@ -157,6 +167,38 @@
 
         </RelativeLayout>
 
+        <RelativeLayout
+            android:id="@+id/relative_description"
+            android:layout_width="match_parent"
+            android:layout_height="400dp"
+            android:layout_below="@id/relative_details"
+            android:layout_marginTop="20dp"
+            android:background="@android:color/white">
+
+            <TextView
+                android:id="@+id/txt_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="12dp"
+                android:text="@string/product_description"
+                android:textColor="@color/colorPrimary"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txt_book_detail_description"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/txt_description"
+                android:layout_marginStart="20dp"
+                android:layout_marginTop="8dp"
+                android:text="@string/product_description"
+                android:textColor="@color/colorPrimary"
+                android:textSize="16sp" />
+
+        </RelativeLayout>
+
         <TextView
             android:id="@+id/txt_book_detail_name"
             android:layout_width="wrap_content"
@@ -168,17 +210,6 @@
             android:textColor="@android:color/white"
             android:textSize="16sp" />
 
-        <TextView
-            android:id="@+id/txt_book_detail_price"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_book_detail_name"
-            android:layout_centerHorizontal="true"
-            android:layout_marginTop="8dp"
-            android:text="@string/product_price"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
 
         <androidx.cardview.widget.CardView
             android:id="@+id/card_view_image"
@@ -204,7 +235,7 @@
             android:id="@+id/btn_number"
             android:layout_width="80dp"
             android:layout_height="40dp"
-            android:layout_below="@+id/relative_description"
+            android:layout_below="@+id/linear_price"
             android:layout_centerHorizontal="true"
             android:layout_marginTop="20dp"
             android:elevation="6dp"

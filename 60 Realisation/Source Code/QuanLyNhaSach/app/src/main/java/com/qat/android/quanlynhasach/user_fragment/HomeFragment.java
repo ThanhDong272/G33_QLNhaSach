@@ -21,7 +21,6 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.qat.android.quanlynhasach.R;
-import com.qat.android.quanlynhasach.admin.MaintainBookActivity;
 import com.qat.android.quanlynhasach.models.Books;
 import com.qat.android.quanlynhasach.user.BookDetailActivity;
 import com.qat.android.quanlynhasach.view_holder.BookViewHolder;
@@ -74,8 +73,8 @@ public class HomeFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Books model) {
-                holder.txtBookName.setText(model.getPname());
-                holder.txtBookPrice.setText(model.getPrice() + "₫");
+                holder.mTxtBookName.setText(model.getPname());
+                holder.mTxtBookPrice.setText(model.getPrice() + "₫");
                 Picasso.get().load(model.getImage()).into(holder.imageView);
 
                 holder.itemView.setOnClickListener(new View.OnClickListener() {

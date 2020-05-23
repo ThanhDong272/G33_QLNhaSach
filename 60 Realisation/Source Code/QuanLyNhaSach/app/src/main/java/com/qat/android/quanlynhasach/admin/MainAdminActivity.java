@@ -14,12 +14,11 @@ import android.view.MenuItem;
 import com.google.android.material.navigation.NavigationView;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin_fragment.AccountListFragment;
-import com.qat.android.quanlynhasach.admin_fragment.CategoryAdminFragment;
+import com.qat.android.quanlynhasach.admin_fragment.CategoryFragment;
+import com.qat.android.quanlynhasach.admin_fragment.NewOrdersFragment;
 import com.qat.android.quanlynhasach.admin_fragment.SettingsAdminFragment;
 import com.qat.android.quanlynhasach.user.LoginActivity;
 import com.qat.android.quanlynhasach.admin_fragment.HomeAdminFragment;
-import com.qat.android.quanlynhasach.user_fragment.HomeFragment;
-import com.qat.android.quanlynhasach.user_fragment.SettingsFragment;
 
 import io.paperdb.Paper;
 
@@ -46,15 +45,6 @@ public class MainAdminActivity extends AppCompatActivity implements NavigationVi
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Get username and image from firebase
-//        View headerView = navigationView.getHeaderView(0);
-//        TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
-//        CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
-//        if (!type.equals("Admins")) {
-//            userNameTextView.setText(Constants.currentOnlineUser.getUsername());
-//            Picasso.get().load(Constants.currentOnlineUser.getImage()).placeholder(R.drawable.img_profile).into(profileImageView);
-//        }
-
         // Open home fragment
         if (savedInstanceState == null) {
             getSupportFragmentManager()
@@ -78,7 +68,14 @@ public class MainAdminActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_category:
                 getSupportFragmentManager()
                         .beginTransaction()
-                        .replace(R.id.fragment_container, new CategoryAdminFragment())
+                        .replace(R.id.fragment_container, new CategoryFragment())
+                        .commit();
+                break;
+
+            case R.id.nav_new_orders:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new NewOrdersFragment())
                         .commit();
                 break;
 

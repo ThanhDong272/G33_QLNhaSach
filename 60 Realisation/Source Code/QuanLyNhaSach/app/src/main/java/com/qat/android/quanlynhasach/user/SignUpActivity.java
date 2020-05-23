@@ -23,7 +23,7 @@ import java.util.HashMap;
 
 public class SignUpActivity extends AppCompatActivity {
 
-    private EditText mEditTextUsername, mEditTextPhone, mEditTextPassword;
+    private EditText mEditTextUsername, mEditTextPassword, mEditTextConfirmPassword;
     private MyLoadingButton mBtnSignUp;
 
     @Override
@@ -32,8 +32,8 @@ public class SignUpActivity extends AppCompatActivity {
         setContentView(R.layout.activity_sign_up);
 
         mEditTextUsername = findViewById(R.id.edit_username);
-        mEditTextPhone = findViewById(R.id.edit_phone);
         mEditTextPassword = findViewById(R.id.edit_password);
+        mEditTextConfirmPassword = findViewById(R.id.edit_confirm_password);
         mBtnSignUp = findViewById(R.id.btn_signup);
 
         mBtnSignUp.setMyButtonClickListener(new MyLoadingButton.MyLoadingButtonClick() {
@@ -48,7 +48,7 @@ public class SignUpActivity extends AppCompatActivity {
     private void CreateAccount() {
         String username = mEditTextUsername.getText().toString();
         String password = mEditTextPassword.getText().toString();
-        String phone = mEditTextPhone.getText().toString();
+        String confirmPassword = mEditTextConfirmPassword.getText().toString();
 
         if (TextUtils.isEmpty(username) || mEditTextUsername.length() <= 5 || mEditTextUsername.length() >= 16) {
             Toast.makeText(this, "Username must be 6 to 15 characters", Toast.LENGTH_SHORT).show();
@@ -56,11 +56,14 @@ public class SignUpActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(password) || mEditTextPassword.length() <= 5 || mEditTextPassword.length() >= 16) {
             Toast.makeText(this, "Password must be 6 to 15 characters", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
-        } else if (TextUtils.isEmpty(phone) || mEditTextPhone.length() <= 6 || mEditTextPhone.length() >= 12) {
-            Toast.makeText(this, "Phone number must be 7 to 11 characters", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(confirmPassword) || mEditTextConfirmPassword.length() <= 5 || mEditTextConfirmPassword.length() >= 16) {
+            Toast.makeText(this, "Confirm password must be 7 to 11 characters", Toast.LENGTH_SHORT).show();
+            mBtnSignUp.showNormalButton();
+        } else if (!password.equals(confirmPassword)) {
+            Toast.makeText(this, "Confirm password doesn't match", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
         } else {
-            ValidatephoneNumber(username, password, phone);
+            ValidatephoneNumber(username, password, confirmPassword);
         }
     }
 
@@ -75,7 +78,6 @@ public class SignUpActivity extends AppCompatActivity {
                     HashMap<String, Object> userdataMap = new HashMap<>();
                     userdataMap.put("username", username);
                     userdataMap.put("password", password);
-                    userdataMap.put("phone", phone);
 
                     RootRef.child("Users").child(username).updateChildren(userdataMap).addOnCompleteListener(new OnCompleteListener<Void>() {
                         @Override

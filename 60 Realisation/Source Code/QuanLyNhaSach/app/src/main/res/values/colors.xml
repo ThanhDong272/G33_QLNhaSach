@@ -8,4 +8,7 @@
     <color name="colorHint">#7fffffff</color>
 
     <color name="color_border">#EAEAEA</color>
+
+    <color name="color_paypal">#169BD7</color>
+    <color name="color_mastercard">#FF5F00</color>
 </resources>
