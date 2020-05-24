@@ -9,8 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".admin.UserBooksActivity"></activity>
-        <activity android:name=".user.PaymentMethodActivity" />
         <activity android:name=".user.SplashActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -25,13 +23,15 @@
         <activity android:name=".admin.AddBookActivity" />
         <activity android:name=".admin.MaintainBookActivity" />
         <activity android:name=".user.BookDetailActivity" />
+        <activity android:name=".admin.UserBooksActivity" />
+        <activity android:name=".user.PaymentMethodActivity" />
         <activity
             android:name="com.theartofdev.edmodo.cropper.CropImageActivity"
             android:theme="@style/Base.Theme.AppCompat" />
     </application>
+
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
-
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
 </manifest>

@@ -58,40 +58,40 @@ public class AccountListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-
-        final DatabaseReference accountListRef = FirebaseDatabase.getInstance().getReference().child("Users");
-
-        FirebaseRecyclerOptions<Users> options = new FirebaseRecyclerOptions.Builder<Users>()
-                .setQuery(accountListRef.child(Constants.currentOnlineUser.getUsername()), Users.class)
-                .build();
-
-        FirebaseRecyclerAdapter<Users, AccountListViewHolder> adapter = new FirebaseRecyclerAdapter<Users, AccountListViewHolder>(options) {
-            @SuppressLint("SetTextI18n")
-            @Override
-            protected void onBindViewHolder(@NonNull AccountListViewHolder holder, int position, @NonNull final Users model) {
-                holder.mTxtUsername.setText(model.getUsername());
-                holder.mTxtPassword.setText(model.getPassword());
-                holder.mTxtFullName.setText(model.getFullName());
-                holder.mTxtSex.setText(model.getSex());
-                holder.mTxtPhoneNumber.setText(model.getPhone());
-                holder.mTxtEmail.setText(model.getEmail());
-                holder.mTxtAddress.setText(model.getAddress());
-
-            }
-
-            @NonNull
-            @Override
-            public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_list_layout, parent, false);
-                AccountListViewHolder holder = new AccountListViewHolder(view);
-                return holder;
-            }
-        };
-
-        recyclerView.setAdapter(adapter);
-        adapter.startListening();
-    }
+//    @Override
+//    public void onStart() {
+//        super.onStart();
+//
+//        final DatabaseReference accountListRef = FirebaseDatabase.getInstance().getReference().child("Users");
+//
+//        FirebaseRecyclerOptions<Users> options = new FirebaseRecyclerOptions.Builder<Users>()
+//                .setQuery(accountListRef.child(Constants.currentOnlineUser.getUsername()), Users.class)
+//                .build();
+//
+//        FirebaseRecyclerAdapter<Users, AccountListViewHolder> adapter = new FirebaseRecyclerAdapter<Users, AccountListViewHolder>(options) {
+//            @SuppressLint("SetTextI18n")
+//            @Override
+//            protected void onBindViewHolder(@NonNull AccountListViewHolder holder, int position, @NonNull final Users model) {
+//                holder.mTxtUsername.setText(model.getUsername());
+//                holder.mTxtPassword.setText(model.getPassword());
+//                holder.mTxtFullName.setText(model.getFullName());
+//                holder.mTxtSex.setText(model.getSex());
+//                holder.mTxtPhoneNumber.setText(model.getPhone());
+//                holder.mTxtEmail.setText(model.getEmail());
+//                holder.mTxtAddress.setText(model.getAddress());
+//
+//            }
+//
+//            @NonNull
+//            @Override
+//            public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_list_layout, parent, false);
+//                AccountListViewHolder holder = new AccountListViewHolder(view);
+//                return holder;
+//            }
+//        };
+//
+//        recyclerView.setAdapter(adapter);
+//        adapter.startListening();
+//    }
 }

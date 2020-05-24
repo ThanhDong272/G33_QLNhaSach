@@ -16,7 +16,6 @@ import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin_fragment.AccountListFragment;
 import com.qat.android.quanlynhasach.admin_fragment.CategoryFragment;
 import com.qat.android.quanlynhasach.admin_fragment.NewOrdersFragment;
-import com.qat.android.quanlynhasach.admin_fragment.SettingsAdminFragment;
 import com.qat.android.quanlynhasach.user.LoginActivity;
 import com.qat.android.quanlynhasach.admin_fragment.HomeAdminFragment;
 
@@ -83,13 +82,6 @@ public class MainAdminActivity extends AppCompatActivity implements NavigationVi
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new AccountListFragment())
-                        .commit();
-                break;
-
-            case R.id.nav_settings:
-                getSupportFragmentManager()
-                        .beginTransaction()
-                        .replace(R.id.fragment_container, new SettingsAdminFragment())
                         .commit();
                 break;
 
