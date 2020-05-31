@@ -22,7 +22,4 @@
 
     </androidx.recyclerview.widget.RecyclerView>
 
-    <include
-        layout="@layout/item_account_list_layout" />
-
 </RelativeLayout>

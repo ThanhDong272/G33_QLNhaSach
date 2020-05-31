@@ -1,27 +1,38 @@
 package com.qat.android.quanlynhasach.view_holder;
 
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.qat.android.quanlynhasach.ItemClickListener;
 import com.qat.android.quanlynhasach.R;
 
-public class AccountListViewHolder extends RecyclerView.ViewHolder {
+import de.hdodenhof.circleimageview.CircleImageView;
 
-    public TextView mTxtUsername, mTxtPassword, mTxtFullName,
-            mTxtSex, mTxtPhoneNumber, mTxtEmail, mTxtAddress;
+public class AccountListViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+
+    public TextView mTxtUsername, mTxtPhoneNumber, mTxtAddress;
+    public CircleImageView mCircleImage;
+    public ItemClickListener listener;
 
     public AccountListViewHolder(@NonNull View itemView) {
         super(itemView);
 
-        mTxtUsername = itemView.findViewById(R.id.txt_cart_user_name);
-        mTxtPassword = itemView.findViewById(R.id.txt_cart_password);
-        mTxtFullName = itemView.findViewById(R.id.txt_cart_full_name);
-        mTxtSex = itemView.findViewById(R.id.txt_cart_sex);
-        mTxtPhoneNumber = itemView.findViewById(R.id.txt_cart_phone_number);
-        mTxtEmail = itemView.findViewById(R.id.txt_cart_email);
-        mTxtAddress = itemView.findViewById(R.id.txt_cart_address);
+        mCircleImage = itemView.findViewById(R.id.img_account);
+        mTxtUsername = itemView.findViewById(R.id.txt_list_user_name);
+        mTxtPhoneNumber = itemView.findViewById(R.id.txt_list_phone);
+        mTxtAddress = itemView.findViewById(R.id.txt_list_address);
+    }
+
+    public void setItemClickListener(ItemClickListener listener) {
+        this.listener = listener;
+    }
+
+    @Override
+    public void onClick(View view) {
+        listener.onClick(view, getAdapterPosition(), false);
     }
 }

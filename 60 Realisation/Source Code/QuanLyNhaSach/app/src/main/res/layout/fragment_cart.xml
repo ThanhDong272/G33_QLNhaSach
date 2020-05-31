@@ -13,6 +13,7 @@
         android:src="@drawable/background_login" />
 
     <RelativeLayout
+        android:id="@+id/relative_total_price"
         android:layout_width="match_parent"
         android:layout_height="120dp"
         android:layout_alignParentBottom="true"
@@ -60,6 +61,7 @@
         android:id="@+id/recycler_menu_cart"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_above="@+id/relative_total_price"
         android:scrollbars="vertical">
 
     </androidx.recyclerview.widget.RecyclerView>

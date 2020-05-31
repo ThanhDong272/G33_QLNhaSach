@@ -24,12 +24,16 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Cart;
 import com.qat.android.quanlynhasach.user.BookDetailActivity;
+import com.qat.android.quanlynhasach.user.PaymentMethodActivity;
 import com.qat.android.quanlynhasach.view_holder.CartViewHolder;
 import com.squareup.picasso.Picasso;
 
@@ -66,6 +70,15 @@ public class CartFragment extends Fragment {
         mBtnOrder = getActivity().findViewById(R.id.btn_order);
         mTxtTotalPrice = getActivity().findViewById(R.id.txt_total_price);
 
+        mBtnOrder.setOnClickListener(new View.OnClickListener() {
+            @SuppressLint("SetTextI18n")
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(getContext(), PaymentMethodActivity.class);
+                startActivity(intent);
+                intent.putExtra("Total Price", String.valueOf(overTotalPrice));
+            }
+        });
 
     }
 
@@ -154,6 +167,32 @@ public class CartFragment extends Fragment {
     public void onStop() {
         super.onStop();
         overTotalPrice = 0;
+    }
+
+    private void CheckOrderState() {
+        DatabaseReference ordersRef;
+        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Constants.currentOnlineUser.getUsername());
+
+        ordersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    String shippingState = dataSnapshot.child("state").getValue().toString();
+                    String userName = dataSnapshot.child("fullname").getValue().toString();
+
+                    if (shippingState.equals("shipped")) {
+
+                    } else if (shippingState.equals("not shipped")) {
+
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(DatabaseError databaseError) {
+
+            }
+        });
     }
 
 

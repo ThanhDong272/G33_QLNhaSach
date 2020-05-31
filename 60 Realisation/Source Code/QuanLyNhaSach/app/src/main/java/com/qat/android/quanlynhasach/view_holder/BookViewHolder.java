@@ -9,14 +9,12 @@ import androidx.recyclerview.widget.RecyclerView;
 import com.qat.android.quanlynhasach.ItemClickListener;
 import com.qat.android.quanlynhasach.R;
 
-public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener
-{
+public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView mTxtBookName, mTxtBookPrice;
     public ImageView imageView;
     public ItemClickListener listener;
 
-    public BookViewHolder(View itemView)
-    {
+    public BookViewHolder(View itemView) {
         super(itemView);
 
         imageView = itemView.findViewById(R.id.img_book_item);
@@ -24,14 +22,12 @@ public class BookViewHolder extends RecyclerView.ViewHolder implements View.OnCl
         mTxtBookPrice = itemView.findViewById(R.id.txt_book_item_price);
     }
 
-    public void setItemClickListener(ItemClickListener listener)
-    {
+    public void setItemClickListener(ItemClickListener listener) {
         this.listener = listener;
     }
 
     @Override
-    public void onClick(View view)
-    {
+    public void onClick(View view) {
         listener.onClick(view, getAdapterPosition(), false);
     }
 }

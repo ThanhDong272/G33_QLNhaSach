@@ -17,6 +17,8 @@ import android.widget.Toast;
 import com.cepheuen.elegantnumberbutton.view.ElegantNumberButton;
 import com.google.android.gms.tasks.Continuation;
 import com.google.android.gms.tasks.OnCompleteListener;
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
 import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
@@ -27,6 +29,8 @@ import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
 import com.qat.android.quanlynhasach.R;
+import com.qat.android.quanlynhasach.admin.AddBookActivity;
+import com.qat.android.quanlynhasach.admin.MainAdminActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Books;
 import com.squareup.picasso.Picasso;
@@ -48,6 +52,7 @@ public class BookDetailActivity extends AppCompatActivity {
     private String mSaveCurrentDate, mSaveCurrentTime;
     private String mProductRandomKey, mDownloadImgUrl;
     private StorageReference mProductImgRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,12 +85,15 @@ public class BookDetailActivity extends AppCompatActivity {
     }
 
     private void addingToCartList() {
-        Calendar calForDate = Calendar.getInstance();
+        Calendar calendar = Calendar.getInstance();
+
         SimpleDateFormat currentDate = new SimpleDateFormat("MMM dd, yyyy");
-        mSaveCurrentDate = currentDate.format(calForDate.getTime());
+        mSaveCurrentDate = currentDate.format(calendar.getTime());
 
         SimpleDateFormat currentTime = new SimpleDateFormat(" HH:mm:ss a");
-        mSaveCurrentTime = currentDate.format(calForDate.getTime());
+        mSaveCurrentTime = currentTime.format(calendar.getTime());
+
+//        mProductRandomKey = mSaveCurrentDate + mSaveCurrentTime;
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 

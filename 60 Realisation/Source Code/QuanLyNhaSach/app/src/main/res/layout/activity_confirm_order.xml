@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/gradient_background"
+    tools:context=".user.ConfirmOrderActivity">
+
+    <ImageView
+        android:id="@+id/image_ariana"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:alpha="0.2"
+        android:scaleType="centerCrop"
+        android:src="@drawable/background_login" />
+
+    <LinearLayout
+        android:id="@+id/linear"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_marginTop="80dp"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/edit_confirm_order_full_name"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/fullname_name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_confirm_order_phone_number"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/phonenumber_name"
+            android:imeOptions="actionNext"
+            android:inputType="phone"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_confirm_oder_address"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/address_name"
+            android:imeOptions="actionNext"
+            android:inputType="text"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+        <EditText
+            android:id="@+id/edit_confirm_order_email"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="20dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginEnd="20dp"
+            android:backgroundTint="@android:color/white"
+            android:hint="@string/email_name"
+            android:imeOptions="actionNext"
+            android:inputType="textEmailAddress"
+            android:textColor="@android:color/white"
+            android:textColorHint="@color/colorHint"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="60dp"
+        android:fontFamily="@font/gitchgitch"
+        android:text="@string/address_order_name"
+        android:textColor="@android:color/white"
+        android:textSize="30sp" />
+
+    <com.example.myloadingbutton.MyLoadingButton
+        android:id="@+id/btn_confirm_order"
+        android:layout_width="match_parent"
+        android:layout_height="48dp"
+        android:layout_alignParentBottom="true"
+        android:layout_marginStart="20dp"
+        android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
+        app:mlb_backgroundColor="@android:color/white"
+        app:mlb_label="Confirm Order"
+        app:mlb_labelColor="@color/colorPrimary"
+        app:mlb_labelSize="5sp"
+        app:mlb_loaderColor="@color/colorPrimary"
+        app:mlb_setNormalAfterError="false" />
+
+</RelativeLayout>

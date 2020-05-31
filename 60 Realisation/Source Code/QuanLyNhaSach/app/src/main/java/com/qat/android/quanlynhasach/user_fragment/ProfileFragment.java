@@ -122,7 +122,7 @@ public class ProfileFragment extends Fragment {
                 if (dataSnapshot.exists()) {
                     if (dataSnapshot.child("image").exists()) {
                         String image = dataSnapshot.child("image").getValue().toString();
-                        String fullName = dataSnapshot.child("full_name").getValue().toString();
+                        String fullName = dataSnapshot.child("fullName").getValue().toString();
                         String sex = dataSnapshot.child("sex").getValue().toString();
                         String phone = dataSnapshot.child("phone").getValue().toString();
                         String address = dataSnapshot.child("address").getValue().toString();
@@ -149,7 +149,7 @@ public class ProfileFragment extends Fragment {
         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
 
         HashMap<String, Object> userMap = new HashMap<>();
-        userMap.put("full_name", mEditTextFullName.getText().toString());
+        userMap.put("fullName", mEditTextFullName.getText().toString());
         userMap.put("sex", mEditTextSex.getText().toString());
         userMap.put("phone", mEditTextPhoneNumber.getText().toString());
         userMap.put("address", mEditTextAddress.getText().toString());
@@ -231,7 +231,7 @@ public class ProfileFragment extends Fragment {
                         DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
 
                         HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("full_name", mEditTextFullName.getText().toString());
+                        userMap.put("fullName", mEditTextFullName.getText().toString());
                         userMap.put("sex", mEditTextSex.getText().toString());
                         userMap.put("phone", mEditTextPhoneNumber.getText().toString());
                         userMap.put("address", mEditTextAddress.getText().toString());

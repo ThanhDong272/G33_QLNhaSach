@@ -14,6 +14,7 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
@@ -23,6 +24,7 @@ import com.google.android.gms.tasks.Task;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.qat.android.quanlynhasach.R;
+import com.qat.android.quanlynhasach.admin.DetailAccountActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Cart;
 import com.qat.android.quanlynhasach.models.Users;
@@ -31,11 +33,14 @@ import com.qat.android.quanlynhasach.view_holder.AccountListViewHolder;
 import com.qat.android.quanlynhasach.view_holder.CartViewHolder;
 import com.squareup.picasso.Picasso;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 public class AccountListFragment extends Fragment {
 
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
+    private DatabaseReference accountListRef;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -48,6 +53,8 @@ public class AccountListFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        accountListRef = FirebaseDatabase.getInstance().getReference().child("Users");
+
         //Action Bar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("Account List");
@@ -58,40 +65,43 @@ public class AccountListFragment extends Fragment {
         recyclerView.setLayoutManager(layoutManager);
     }
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//        final DatabaseReference accountListRef = FirebaseDatabase.getInstance().getReference().child("Users");
-//
-//        FirebaseRecyclerOptions<Users> options = new FirebaseRecyclerOptions.Builder<Users>()
-//                .setQuery(accountListRef.child(Constants.currentOnlineUser.getUsername()), Users.class)
-//                .build();
-//
-//        FirebaseRecyclerAdapter<Users, AccountListViewHolder> adapter = new FirebaseRecyclerAdapter<Users, AccountListViewHolder>(options) {
-//            @SuppressLint("SetTextI18n")
-//            @Override
-//            protected void onBindViewHolder(@NonNull AccountListViewHolder holder, int position, @NonNull final Users model) {
-//                holder.mTxtUsername.setText(model.getUsername());
-//                holder.mTxtPassword.setText(model.getPassword());
-//                holder.mTxtFullName.setText(model.getFullName());
-//                holder.mTxtSex.setText(model.getSex());
-//                holder.mTxtPhoneNumber.setText(model.getPhone());
-//                holder.mTxtEmail.setText(model.getEmail());
-//                holder.mTxtAddress.setText(model.getAddress());
-//
-//            }
-//
-//            @NonNull
-//            @Override
-//            public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-//                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_list_layout, parent, false);
-//                AccountListViewHolder holder = new AccountListViewHolder(view);
-//                return holder;
-//            }
-//        };
-//
-//        recyclerView.setAdapter(adapter);
-//        adapter.startListening();
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
+
+        FirebaseRecyclerOptions<Users> options = new FirebaseRecyclerOptions.Builder<Users>()
+                .setQuery(accountListRef, Users.class)
+                .build();
+
+        FirebaseRecyclerAdapter<Users, AccountListViewHolder> adapter = new FirebaseRecyclerAdapter<Users, AccountListViewHolder>(options) {
+            @SuppressLint("SetTextI18n")
+            @Override
+            protected void onBindViewHolder(@NonNull AccountListViewHolder holder, int position, @NonNull final Users model) {
+                Picasso.get().load(model.getImage()).into(holder.mCircleImage);
+                holder.mTxtUsername.setText(model.getUsername());
+                holder.mTxtPhoneNumber.setText(model.getPhone());
+                holder.mTxtAddress.setText(model.getAddress());
+
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        Intent intent = new Intent(getContext(), DetailAccountActivity.class);
+                        startActivity(intent);
+                    }
+                });
+
+            }
+
+            @NonNull
+            @Override
+            public AccountListViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_account_list_layout, parent, false);
+                AccountListViewHolder holder = new AccountListViewHolder(view);
+                return holder;
+            }
+        };
+
+        recyclerView.setAdapter(adapter);
+        adapter.startListening();
+    }
 }

@@ -87,6 +87,15 @@
     <string name="item_email_name">Email</string>
     <string name="item_address_name">Address</string>
 
+    <!--    Detail Account List-->
+    <string name="detail_user_name">Username:</string>
+    <string name="detail_password_name">Password:</string>
+    <string name="detail_full_name">Fullname:</string>
+    <string name="detail_sex_name">Sex:</string>
+    <string name="detail_phone_name">Phone:</string>
+    <string name="detail_email_name">Email:</string>
+    <string name="detail_address_name">Address:</string>
+
     <!--    Payment Method-->
     <string name="payment_method_name">Payment Method</string>
     <string name="pay_with_cash_name">Pay with Cash</string>
@@ -105,4 +114,8 @@
 
     <!--    Admin User Product-->
     <string name="user_product_name">Books</string>
+
+    <!--    Address Order-->
+    <string name="address_order_name">Is this your address ?</string>
+    <string name="confirm_order_name">Confirm Order</string>
 </resources>
