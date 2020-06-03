@@ -24,7 +24,6 @@
         <activity android:name=".admin.MaintainBookActivity" />
         <activity android:name=".user.BookDetailActivity" />
         <activity android:name=".admin.UserBooksActivity" />
-        <activity android:name=".user.PaymentMethodActivity" />
         <activity android:name=".admin.DetailAccountActivity" />
         <activity android:name=".user.ConfirmOrderActivity" />
         <activity

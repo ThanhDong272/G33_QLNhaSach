@@ -16,6 +16,7 @@
     <!--    Drawer Menu-->
     <string name="home_title">Home</string>
     <string name="cart_title">Cart</string>
+    <string name="my_order_title">My Order</string>
     <string name="profile_title">Profile</string>
     <string name="logout_title">Logout</string>
 
@@ -104,13 +105,15 @@
 
     <!--    Admin New Orders-->
     <string name="new_orders_name">New Orders</string>
+    <string name="item_orders_id">Order ID</string>
     <string name="item_orders_full_name">Full Name</string>
     <string name="item_orders_username">Username</string>
     <string name="item_orders_phone_number">Phone number</string>
     <string name="item_orders_total_price">Total price</string>
     <string name="item_orders_address">Address</string>
     <string name="item_orders_date_time">Date Time</string>
-    <string name="show_item_products">Show This Order Books</string>
+    <string name="item_orders_state_ship">State Ship</string>
+    <string name="show_item_products">Show Books</string>
 
     <!--    Admin User Product-->
     <string name="user_product_name">Books</string>
@@ -118,4 +121,6 @@
     <!--    Address Order-->
     <string name="address_order_name">Is this your address ?</string>
     <string name="confirm_order_name">Confirm Order</string>
+
+    <!--    My Order-->
 </resources>

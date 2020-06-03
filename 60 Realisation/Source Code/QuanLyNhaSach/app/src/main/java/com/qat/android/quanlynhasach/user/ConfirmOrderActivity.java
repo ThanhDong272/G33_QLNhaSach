@@ -41,7 +41,6 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         setContentView(R.layout.activity_confirm_order);
 
         totalPrice = getIntent().getStringExtra("Total Price");
-        Toast.makeText(this, "Total Price = " + totalPrice, Toast.LENGTH_SHORT).show();
 
         displayUserInfo();
 
@@ -120,12 +119,21 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat(" HH:mm:ss a");
         mSaveCurrentTime = currentTime.format(calendar.getTime());
 
+        String key = FirebaseDatabase.getInstance().getReference().child("User Orders").child(Constants.currentOnlineUser.getUsername()).push().getKey();
+
+        final DatabaseReference userOrdersRef = FirebaseDatabase.getInstance().getReference()
+                .child("User Orders")
+                .child(key);
+
         final DatabaseReference ordersRef = FirebaseDatabase.getInstance().getReference()
                 .child("Orders")
-                .child(Constants.currentOnlineUser.getUsername());
+                .child(Constants.currentOnlineUser.getUsername())
+                .child(key);
 
         HashMap<String, Object> ordersMap = new HashMap<>();
+        ordersMap.put("orderID", key);
         ordersMap.put("totalPrice", totalPrice);
+        ordersMap.put("username", Constants.currentOnlineUser.getUsername());
         ordersMap.put("fullName", mEditTextFullName.getText().toString());
         ordersMap.put("phone", mEditTextPhone.getText().toString());
         ordersMap.put("address", mEditTextAddress.getText().toString());
@@ -134,7 +142,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         ordersMap.put("time", mSaveCurrentTime);
         ordersMap.put("state", "not shipped");
 
-        ordersRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+        userOrdersRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
@@ -148,14 +156,19 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ConfirmOrderActivity.this, "Order Success", Toast.LENGTH_SHORT).show();
-
                                         Intent intent = new Intent(ConfirmOrderActivity.this, MainActivity.class);
-//                                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                                         startActivity(intent);
                                     }
                                 }
                             });
                 }
+            }
+        });
+
+        ordersRef.updateChildren(ordersMap).addOnCompleteListener(new OnCompleteListener<Void>() {
+            @Override
+            public void onComplete(@NonNull Task<Void> task) {
+
             }
         });
     }

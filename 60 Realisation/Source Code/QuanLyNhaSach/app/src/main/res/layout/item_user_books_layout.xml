@@ -33,7 +33,6 @@
                 android:text="@string/item_book_name"
                 android:textColor="@color/colorPrimary"
                 android:textSize="16sp"
-                android:ellipsize="end"
                 android:gravity="center"
                 android:maxLines="1"/>
 

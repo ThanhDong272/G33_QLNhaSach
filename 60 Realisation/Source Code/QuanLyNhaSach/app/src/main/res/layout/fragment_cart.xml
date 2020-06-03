@@ -40,7 +40,7 @@
             android:layout_alignParentEnd="true"
             android:layout_marginTop="13dp"
             android:layout_marginEnd="20dp"
-            android:text="@string/total_price_name"
+            android:text="0₫"
             android:textColor="@android:color/white"
             android:textSize="20sp" />
 

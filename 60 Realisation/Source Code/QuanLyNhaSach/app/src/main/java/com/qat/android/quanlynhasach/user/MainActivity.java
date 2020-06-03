@@ -18,6 +18,7 @@ import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.user_fragment.CartFragment;
 import com.qat.android.quanlynhasach.user_fragment.HomeFragment;
+import com.qat.android.quanlynhasach.user_fragment.MyOrderFragment;
 import com.qat.android.quanlynhasach.user_fragment.ProfileFragment;
 import com.squareup.picasso.Picasso;
 
@@ -78,6 +79,13 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 getSupportFragmentManager()
                         .beginTransaction()
                         .replace(R.id.fragment_container, new CartFragment())
+                        .commit();
+                break;
+
+            case R.id.nav_my_order:
+                getSupportFragmentManager()
+                        .beginTransaction()
+                        .replace(R.id.fragment_container, new MyOrderFragment())
                         .commit();
                 break;
 

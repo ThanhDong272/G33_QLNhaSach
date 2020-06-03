@@ -14,10 +14,10 @@
         android:background="@color/colorPrimaryDark">
 
         <Button
-            android:id="@+id/btn_show_all_books"
+            android:id="@+id/btn_show_books"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_state_ship"
+            android:layout_below="@+id/txt_my_order_state_ship"
             android:layout_marginLeft="20dp"
             android:layout_marginTop="29dp"
             android:layout_marginRight="20dp"
@@ -29,7 +29,7 @@
             android:textSize="16sp" />
 
         <TextView
-            android:id="@+id/txt_order_id"
+            android:id="@+id/txt_my_order_id"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="16dp"
@@ -40,34 +40,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_order_username"
+            android:id="@+id/txt_my_order_total_price"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_id"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/item_orders_username"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_order_phone_number"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_full_name"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/item_orders_phone_number"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_order_total_price"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_phone_number"
+            android:layout_below="@+id/txt_my_order_id"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/item_orders_total_price"
@@ -76,22 +52,10 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_order_address"
+            android:id="@+id/txt_my_order_date_time"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_total_price"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/item_orders_address"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_order_date_time"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_address"
+            android:layout_below="@+id/txt_my_order_total_price"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/item_orders_date_time"
@@ -100,25 +64,13 @@
             android:textStyle="bold" />
 
         <TextView
-            android:id="@+id/txt_order_state_ship"
+            android:id="@+id/txt_my_order_state_ship"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_date_time"
+            android:layout_below="@+id/txt_my_order_date_time"
             android:layout_marginTop="16dp"
             android:gravity="center"
             android:text="@string/item_orders_state_ship"
-            android:textColor="@android:color/white"
-            android:textSize="16sp"
-            android:textStyle="bold" />
-
-        <TextView
-            android:id="@+id/txt_order_full_name"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/txt_order_username"
-            android:layout_marginTop="16dp"
-            android:gravity="center"
-            android:text="@string/item_orders_full_name"
             android:textColor="@android:color/white"
             android:textSize="16sp"
             android:textStyle="bold" />
