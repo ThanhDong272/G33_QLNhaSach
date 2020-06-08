@@ -3,7 +3,11 @@ package com.qat.android.quanlynhasach.user;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.widget.EditText;
@@ -17,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 
 import java.util.HashMap;
@@ -57,13 +62,16 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "Password must be 6 to 15 characters", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
         } else if (TextUtils.isEmpty(confirmPassword) || mEditTextConfirmPassword.length() <= 5 || mEditTextConfirmPassword.length() >= 16) {
-            Toast.makeText(this, "Confirm password must be 7 to 11 characters", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, "Confirm password must be 6 to 15 characters", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
         } else if (!password.equals(confirmPassword)) {
             Toast.makeText(this, "Confirm password doesn't match", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
-        } else {
+        } else if (CheckConnection.isOnline(SignUpActivity.this)) {
             ValidatephoneNumber(username, password, confirmPassword);
+        } else {
+            Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            mBtnSignUp.showNormalButton();
         }
     }
 
@@ -87,16 +95,12 @@ public class SignUpActivity extends AppCompatActivity {
                                 mBtnSignUp.showNormalButton();
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
                                 startActivity(intent);
-                            } else {
-                                mBtnSignUp.showNormalButton();
-                                Toast.makeText(SignUpActivity.this, "Network Error: Please try again after some time", Toast.LENGTH_SHORT).show();
                             }
                         }
                     });
                 } else {
                     Toast.makeText(SignUpActivity.this, "This " + "username " + username + " is already exists.", Toast.LENGTH_SHORT).show();
                     mBtnSignUp.showNormalButton();
-                    Toast.makeText(SignUpActivity.this, "Please try again using another username.", Toast.LENGTH_SHORT).show();
                 }
             }
 

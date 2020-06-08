@@ -20,30 +20,35 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class DetailAccountActivity extends AppCompatActivity {
 
+    private String userID = "";
+
+    private TextView mTxtDetailUsername, mTxtDetailPassword, mTxtDetailFullName,
+            mTxtDetailSex, mTxtDetailPhone, mTxtDetailEmail, mTxtDetailAddress;
+    private CircleImageView mCircleImgDetail;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_detail_account);
 
-        TextView mTxtDetailUsername = findViewById(R.id.txt_detail_account_username);
-        TextView mTxtDetailPassword = findViewById(R.id.txt_detail_account_password);
-        TextView mTxtDetailFullName = findViewById(R.id.txt_detail_account_fullname);
-        TextView mTxtDetailSex = findViewById(R.id.txt_detail_account_sex);
-        TextView mTxtDetailPhone = findViewById(R.id.txt_detail_account_phone);
-        TextView mTxtDetailEmail = findViewById(R.id.txt_detail_account_email);
-        TextView mTxtDetailAddress = findViewById(R.id.txt_detail_account_address);
+        userID = getIntent().getStringExtra("userID");
 
-        CircleImageView mCircleImgDetail = findViewById(R.id.img_detail_account);
+        mTxtDetailUsername = findViewById(R.id.txt_detail_account_username);
+        mTxtDetailPassword = findViewById(R.id.txt_detail_account_password);
+        mTxtDetailFullName = findViewById(R.id.txt_detail_account_fullname);
+        mTxtDetailSex = findViewById(R.id.txt_detail_account_sex);
+        mTxtDetailPhone = findViewById(R.id.txt_detail_account_phone);
+        mTxtDetailEmail = findViewById(R.id.txt_detail_account_email);
+        mTxtDetailAddress = findViewById(R.id.txt_detail_account_address);
 
-        displayDetailAccount(mCircleImgDetail, mTxtDetailUsername, mTxtDetailPassword,
-                mTxtDetailFullName, mTxtDetailSex, mTxtDetailPhone, mTxtDetailEmail, mTxtDetailAddress);
+        mCircleImgDetail = findViewById(R.id.img_detail_account);
+
+        displayDetailAccount();
     }
 
-    private void displayDetailAccount(final CircleImageView mCircleImgDetail, final TextView mTxtDetailUsername, final TextView mTxtDetailPassword,
-                                      final TextView mTxtDetailFullName, final TextView mTxtDetailSex, final TextView mTxtDetailPhone,
-                                      final TextView mTxtDetailEmail, final TextView mTxtDetailAddress) {
+    private void displayDetailAccount() {
 
-        DatabaseReference accountDetailRef = FirebaseDatabase.getInstance().getReference().child("Users").child(Constants.currentOnlineUser.getUsername());
+        DatabaseReference accountDetailRef = FirebaseDatabase.getInstance().getReference().child("Users").child(userID);
 
         accountDetailRef.addValueEventListener(new ValueEventListener() {
             @SuppressLint("SetTextI18n")

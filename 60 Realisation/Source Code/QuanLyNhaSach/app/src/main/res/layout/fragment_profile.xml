@@ -19,7 +19,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_profile"
+        android:layout_centerVertical="true"
         android:layout_marginTop="80dp"
         android:orientation="vertical">
 
@@ -104,10 +104,10 @@
         android:id="@+id/btn_update_profile"
         android:layout_width="match_parent"
         android:layout_height="48dp"
-        android:layout_below="@id/linear"
+        android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
-        android:layout_marginTop="80dp"
         android:layout_marginEnd="20dp"
+        android:layout_marginBottom="80dp"
         app:mlb_backgroundColor="@android:color/white"
         app:mlb_label="Update Profile"
         app:mlb_labelColor="@color/colorPrimary"

@@ -85,7 +85,9 @@ public class AccountListFragment extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
+                        String uID = getRef(position).getKey();
                         Intent intent = new Intent(getContext(), DetailAccountActivity.class);
+                        intent.putExtra("userID", uID);
                         startActivity(intent);
                     }
                 });

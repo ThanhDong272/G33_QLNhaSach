@@ -11,13 +11,12 @@ import com.qat.android.quanlynhasach.R;
 
 public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
     public TextView mTxtBookName, mTxtBookPrice, mTxtBookQuantity;
-    public ImageView mImgBook, mImgClose;
-    private ItemClickListener itemClickListener;
+    public ImageView mImgClose;
+    private ItemClickListener onItemClickListener;
 
     public CartViewHolder(View itemView) {
         super(itemView);
 
-        mImgBook = itemView.findViewById(R.id.img_cart_book);
         mImgClose = itemView.findViewById(R.id.img_close);
         mTxtBookName = itemView.findViewById(R.id.txt_cart_book_name);
         mTxtBookPrice = itemView.findViewById(R.id.txt_cart_book_price);
@@ -26,10 +25,10 @@ public class CartViewHolder extends RecyclerView.ViewHolder implements View.OnCl
     @Override
 
     public void onClick(View view) {
-        itemClickListener.onClick(view, getAdapterPosition(), false);
+        onItemClickListener.onClick(view, getAdapterPosition(), false);
     }
 
-    public void setItemClickListener(ItemClickListener itemClickListener) {
-        this.itemClickListener = itemClickListener;
+    public void setOnItemClickListener(ItemClickListener onItemClickListener) {
+        this.onItemClickListener = onItemClickListener;
     }
 }

@@ -17,8 +17,8 @@
 
     <ImageView
         android:id="@+id/img_camera"
-        android:layout_width="136dp"
-        android:layout_height="136dp"
+        android:layout_width="128dp"
+        android:layout_height="128dp"
         android:layout_below="@+id/txt_new_product"
         android:layout_centerInParent="true"
         android:layout_marginTop="20dp"
@@ -28,8 +28,7 @@
         android:id="@+id/linear"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@id/img_camera"
-        android:layout_marginTop="60dp"
+        android:layout_centerVertical="true"
         android:orientation="vertical">
 
         <EditText
@@ -122,8 +121,7 @@
     <com.example.myloadingbutton.MyLoadingButton
         android:id="@+id/btn_add_product"
         android:layout_width="match_parent"
-        android:layout_height="52dp"
-        android:layout_below="@id/linear"
+        android:layout_height="48dp"
         android:layout_alignParentBottom="true"
         android:layout_marginStart="20dp"
         android:layout_marginEnd="20dp"

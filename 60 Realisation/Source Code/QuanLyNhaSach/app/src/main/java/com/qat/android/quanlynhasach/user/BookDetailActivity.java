@@ -48,7 +48,6 @@ public class BookDetailActivity extends AppCompatActivity {
     private ImageView mImgBook;
     private String productID = "", state = "Normal";
 
-    private Uri mImgUri;
     private String mSaveCurrentDate, mSaveCurrentTime;
     private String mProductRandomKey, mDownloadImgUrl;
     private StorageReference mProductImgRef;
@@ -93,13 +92,11 @@ public class BookDetailActivity extends AppCompatActivity {
         SimpleDateFormat currentTime = new SimpleDateFormat(" HH:mm:ss a");
         mSaveCurrentTime = currentTime.format(calendar.getTime());
 
-//        mProductRandomKey = mSaveCurrentDate + mSaveCurrentTime;
 
         final DatabaseReference cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
         final HashMap<String, Object> cartMap = new HashMap<>();
         cartMap.put("pid", productID);
-//        cartMap.put("image", mDownloadImgUrl);
         cartMap.put("pname", mTxtBookName.getText().toString());
         cartMap.put("price", mTxtBookPrice.getText().toString());
         cartMap.put("category", mTxtBookCategory.getText().toString());

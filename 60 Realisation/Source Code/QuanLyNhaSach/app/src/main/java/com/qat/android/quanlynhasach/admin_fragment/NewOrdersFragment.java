@@ -33,6 +33,8 @@ import java.util.HashMap;
 public class NewOrdersFragment extends Fragment {
 
     private RecyclerView mOrdersList;
+    private DatabaseReference userOrdersRef;
+
     private DatabaseReference ordersRef;
 
     @Override
@@ -50,7 +52,9 @@ public class NewOrdersFragment extends Fragment {
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("New Orders");
 
-        ordersRef = FirebaseDatabase.getInstance().getReference().child("User Orders");
+        userOrdersRef = FirebaseDatabase.getInstance().getReference().child("User Orders");
+
+        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Constants.currentOnlineUser.getUsername());
 
         mOrdersList = getActivity().findViewById(R.id.recycler_menu_new_orders);
         mOrdersList.setLayoutManager(new LinearLayoutManager(getContext()));
@@ -62,7 +66,7 @@ public class NewOrdersFragment extends Fragment {
 
 
         FirebaseRecyclerOptions<AdminOrders> options = new FirebaseRecyclerOptions.Builder<AdminOrders>()
-                .setQuery(ordersRef, AdminOrders.class)
+                .setQuery(userOrdersRef, AdminOrders.class)
                 .build();
 
         FirebaseRecyclerAdapter<AdminOrders, AdminOrdersViewHolder> adapter = new FirebaseRecyclerAdapter<AdminOrders, AdminOrdersViewHolder>(options) {
@@ -105,9 +109,18 @@ public class NewOrdersFragment extends Fragment {
                                     @Override
                                     public void onClick(DialogInterface dialogInterface, int i) {
                                         if (i == 0) {
+                                            String orderID = getRef(position).getKey();
                                             HashMap<String, Object> newOrders = new HashMap<>();
                                             newOrders.put("state", "shipped");
-                                            ordersRef.child(Constants.currentOnlineUser.getUsername()).updateChildren(newOrders);
+                                            userOrdersRef.child(orderID).updateChildren(newOrders);
+                                            ordersRef.child(orderID).updateChildren(newOrders);
+                                        }
+                                        else {
+                                            String orderID = getRef(position).getKey();
+                                            HashMap<String, Object> newOrders = new HashMap<>();
+                                            newOrders.put("state", "not shipped");
+                                            userOrdersRef.child(orderID).updateChildren(newOrders);
+                                            ordersRef.child(orderID).updateChildren(newOrders);
                                         }
                                     }
                                 });

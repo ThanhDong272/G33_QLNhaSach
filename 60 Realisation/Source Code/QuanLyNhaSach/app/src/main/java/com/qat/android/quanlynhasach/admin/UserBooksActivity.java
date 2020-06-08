@@ -80,12 +80,10 @@ public class UserBooksActivity extends AppCompatActivity {
 
     public static class UserBooksViewHolder extends RecyclerView.ViewHolder {
         TextView mTxtUserBookName, mTxtUserBookPrice, mTxtUserBookQuantity;
-        ImageView mImgUserBook;
 
         UserBooksViewHolder(View itemView) {
             super(itemView);
 
-            mImgUserBook = itemView.findViewById(R.id.img_user_books);
             mTxtUserBookName = itemView.findViewById(R.id.txt_user_books_name);
             mTxtUserBookPrice = itemView.findViewById(R.id.txt_user_books_price);
             mTxtUserBookQuantity = itemView.findViewById(R.id.txt_user_books_quantity);

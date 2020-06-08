@@ -32,6 +32,8 @@ import com.qat.android.quanlynhasach.user.ConfirmOrderActivity;
 import com.qat.android.quanlynhasach.view_holder.CartViewHolder;
 import com.squareup.picasso.Picasso;
 
+import java.util.HashMap;
+
 public class CartFragment extends Fragment {
 
     private RecyclerView recyclerView;
@@ -103,7 +105,6 @@ public class CartFragment extends Fragment {
             @SuppressLint("SetTextI18n")
             @Override
             protected void onBindViewHolder(@NonNull CartViewHolder holder, int position, @NonNull final Cart model) {
-                Picasso.get().load(model.getImage()).into(holder.mImgBook);
                 holder.mTxtBookName.setText(model.getPname());
                 holder.mTxtBookPrice.setText(model.getPrice() + "₫");
                 holder.mTxtBookQuantity.setText(model.getQuantity());
@@ -149,6 +150,9 @@ public class CartFragment extends Fragment {
 
                                     }
                                 });
+                        int oneTypeProductTPrice = ((Integer.parseInt(model.getPrice()))) * Integer.parseInt(model.getQuantity());
+                        overTotalPrice = overTotalPrice - oneTypeProductTPrice;
+                        mTxtTotalPrice.setText(String.valueOf(overTotalPrice) + "₫");
                     }
                 });
             }

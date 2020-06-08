@@ -19,6 +19,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.MainAdminActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
@@ -76,12 +77,17 @@ public class LoginActivity extends AppCompatActivity {
 
         if (UserNameKey != "" && UserPasswordKey != "") {
             if (!TextUtils.isEmpty(UserNameKey) && !TextUtils.isEmpty(UserPasswordKey)) {
-                AllowAccess(UserNameKey, UserPasswordKey);
+                if (CheckConnection.isOnline(LoginActivity.this)) {
+                    AllowAccess(UserNameKey, UserPasswordKey);
+                    loadingBar.setTitle("You're already logged in !");
+                    loadingBar.setMessage("Please wait...");
+                    loadingBar.setCanceledOnTouchOutside(false);
+                    loadingBar.show();
+                } else {
+                    Toast.makeText(LoginActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                    loadingBar.dismiss();
+                }
 
-                loadingBar.setTitle("You're already logged in !");
-                loadingBar.setMessage("Please wait...");
-                loadingBar.setCanceledOnTouchOutside(false);
-                loadingBar.show();
             }
         }
 
@@ -116,8 +122,11 @@ public class LoginActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(password) || mEditTextPassword.length() <= 5 || mEditTextPassword.length() >= 16) {
             Toast.makeText(this, "Password must be 6 to 15 characters", Toast.LENGTH_SHORT).show();
             mBtnLogin.showNormalButton();
-        } else {
+        } else if (CheckConnection.isOnline(LoginActivity.this)) {
             AllowAccessToAccount(username, password);
+        } else {
+            Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+            mBtnLogin.showNormalButton();
         }
     }
 
