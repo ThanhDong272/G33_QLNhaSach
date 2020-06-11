@@ -156,6 +156,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                                 public void onComplete(@NonNull Task<Void> task) {
                                     if (task.isSuccessful()) {
                                         Toast.makeText(ConfirmOrderActivity.this, "Order Success", Toast.LENGTH_SHORT).show();
+                                        mBtnConfirmOrder.showNormalButton();
                                         Intent intent = new Intent(ConfirmOrderActivity.this, MainActivity.class);
                                         startActivity(intent);
                                     }
