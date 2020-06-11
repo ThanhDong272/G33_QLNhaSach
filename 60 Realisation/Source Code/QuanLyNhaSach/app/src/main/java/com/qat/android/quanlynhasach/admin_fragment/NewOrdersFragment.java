@@ -21,8 +21,11 @@ import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.UserBooksActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
@@ -36,6 +39,8 @@ public class NewOrdersFragment extends Fragment {
     private DatabaseReference userOrdersRef;
 
     private DatabaseReference ordersRef;
+
+    private TextView mTxtCheckNewOrder;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -56,6 +61,8 @@ public class NewOrdersFragment extends Fragment {
 
         ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Constants.currentOnlineUser.getUsername());
 
+        mTxtCheckNewOrder = getActivity().findViewById(R.id.txt_no_new_order_yet);
+
         mOrdersList = getActivity().findViewById(R.id.recycler_menu_new_orders);
         mOrdersList.setLayoutManager(new LinearLayoutManager(getContext()));
     }
@@ -64,6 +71,7 @@ public class NewOrdersFragment extends Fragment {
     public void onStart() {
         super.onStart();
 
+        checkOrder();
 
         FirebaseRecyclerOptions<AdminOrders> options = new FirebaseRecyclerOptions.Builder<AdminOrders>()
                 .setQuery(userOrdersRef, AdminOrders.class)
@@ -139,6 +147,25 @@ public class NewOrdersFragment extends Fragment {
 
         mOrdersList.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    private void checkOrder() {
+        userOrdersRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                } else {
+                    mTxtCheckNewOrder.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
     public static class AdminOrdersViewHolder extends RecyclerView.ViewHolder {

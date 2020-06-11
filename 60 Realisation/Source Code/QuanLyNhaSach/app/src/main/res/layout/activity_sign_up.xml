@@ -47,7 +47,8 @@
                 android:inputType="text"
                 android:textColor="@android:color/white"
                 android:textColorHint="@color/colorHint"
-                android:textSize="16sp" />
+                android:textSize="16sp"
+                android:digits="!@#$%^&amp;*()_+/-{}|\';:?.>,<"/>
 
         </LinearLayout>
 

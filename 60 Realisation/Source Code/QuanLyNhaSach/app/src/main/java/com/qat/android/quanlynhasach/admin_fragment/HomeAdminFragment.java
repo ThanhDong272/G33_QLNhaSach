@@ -15,11 +15,15 @@ import androidx.recyclerview.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.MaintainBookActivity;
 import com.qat.android.quanlynhasach.models.Books;
@@ -32,6 +36,8 @@ public class HomeAdminFragment extends Fragment {
 
     private DatabaseReference ProductsRef;
     private RecyclerView mRecyclerView;
+
+    private TextView mTxtCheckAddBook;
 
     private String type = "";
 
@@ -52,6 +58,8 @@ public class HomeAdminFragment extends Fragment {
 
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
 
+        mTxtCheckAddBook = getActivity().findViewById(R.id.txt_not_add_book_yet);
+
         Paper.init(getContext());
 
         //Action Bar
@@ -61,12 +69,15 @@ public class HomeAdminFragment extends Fragment {
         mRecyclerView = getActivity().findViewById(R.id.recycler_menu_item);
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
-        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));;
+        mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
+        ;
     }
 
     @Override
     public void onStart() {
         super.onStart();
+
+        checkAddBook();
 
         FirebaseRecyclerOptions<Books> options = new FirebaseRecyclerOptions.Builder<Books>()
                 .setQuery(ProductsRef, Books.class)
@@ -100,6 +111,25 @@ public class HomeAdminFragment extends Fragment {
         };
         mRecyclerView.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    private void checkAddBook() {
+        ProductsRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                } else {
+                    mTxtCheckAddBook.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
     }
 
 }

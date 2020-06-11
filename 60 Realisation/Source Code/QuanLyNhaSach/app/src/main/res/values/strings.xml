@@ -53,6 +53,7 @@
     <string name="product_author">Author</string>
     <string name="product_release_date">Release Date</string>
     <string name="product_description">Description</string>
+    <string name="not_add_book_yet">You have not added any books</string>
 
     <!--    Item Book-->
     <string name="item_book_name">Book name</string>
@@ -77,6 +78,7 @@
     <!--    Cart-->
     <string name="total_price_name">Total price</string>
     <string name="order_name">Order</string>
+    <string name="not_cart_yet">You have no cart yet</string>
 
     <!--    Account List-->
     <string name="item_user_name">Username</string>
@@ -113,6 +115,8 @@
     <string name="item_orders_date_time">Date Time</string>
     <string name="item_orders_state_ship">State Ship</string>
     <string name="show_item_products">Show Books</string>
+    <string name="cancel_order">Cancel Order</string>
+    <string name="not_new_order_yet">You have no orders from anyone yet</string>
 
     <!--    Admin User Product-->
     <string name="user_product_name">Books</string>
@@ -122,4 +126,5 @@
     <string name="confirm_order_name">Confirm Order</string>
 
     <!--    My Order-->
+    <string name="not_order_yet">You have no order yet</string>
 </resources>
