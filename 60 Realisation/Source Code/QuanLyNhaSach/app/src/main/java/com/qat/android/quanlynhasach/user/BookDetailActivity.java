@@ -28,6 +28,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.AddBookActivity;
 import com.qat.android.quanlynhasach.admin.MainAdminActivity;
@@ -39,6 +40,8 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.HashMap;
 
+import io.paperdb.Book;
+
 public class BookDetailActivity extends AppCompatActivity {
 
     private TextView mTxtBookName, mTxtBookPrice, mTxtBookCategory,
@@ -46,11 +49,9 @@ public class BookDetailActivity extends AppCompatActivity {
     private Button mBtnAddToCart;
     private ElegantNumberButton mNumberButton;
     private ImageView mImgBook;
-    private String productID = "", state = "Normal";
+    private String productID = "";
 
     private String mSaveCurrentDate, mSaveCurrentTime;
-    private String mProductRandomKey, mDownloadImgUrl;
-    private StorageReference mProductImgRef;
 
 
     @Override
@@ -123,6 +124,7 @@ public class BookDetailActivity extends AppCompatActivity {
                                             if (task.isSuccessful()) {
                                                 Toast.makeText(BookDetailActivity.this, "Added to Cart List", Toast.LENGTH_SHORT).show();
                                                 Intent intent = new Intent(BookDetailActivity.this, MainActivity.class);
+                                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                                 startActivity(intent);
                                             }
                                         }

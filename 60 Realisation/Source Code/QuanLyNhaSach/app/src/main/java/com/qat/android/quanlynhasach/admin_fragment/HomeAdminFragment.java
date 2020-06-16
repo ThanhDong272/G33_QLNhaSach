@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -24,6 +25,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.MaintainBookActivity;
 import com.qat.android.quanlynhasach.models.Books;
@@ -94,9 +96,14 @@ public class HomeAdminFragment extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), MaintainBookActivity.class);
-                        intent.putExtra("pid", model.getPid());
-                        startActivity(intent);
+                        if (CheckConnection.isOnline(getContext())) {
+                            Intent intent = new Intent(getContext(), MaintainBookActivity.class);
+                            intent.putExtra("pid", model.getPid());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
             }

@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
@@ -26,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.UserBooksActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
@@ -59,8 +61,6 @@ public class NewOrdersFragment extends Fragment {
 
         userOrdersRef = FirebaseDatabase.getInstance().getReference().child("User Orders");
 
-        ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Constants.currentOnlineUser.getUsername());
-
         mTxtCheckNewOrder = getActivity().findViewById(R.id.txt_no_new_order_yet);
 
         mOrdersList = getActivity().findViewById(R.id.recycler_menu_new_orders);
@@ -78,72 +78,80 @@ public class NewOrdersFragment extends Fragment {
                 .build();
 
         FirebaseRecyclerAdapter<AdminOrders, AdminOrdersViewHolder> adapter = new FirebaseRecyclerAdapter<AdminOrders, AdminOrdersViewHolder>(options) {
-                    @SuppressLint("SetTextI18n")
+            @SuppressLint("SetTextI18n")
+            @Override
+            protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, final int position, @NonNull final AdminOrders model) {
+                holder.mTxtOrderID.setText("Order ID: " + model.getOrderID());
+                holder.mTxtFullName.setText("Full Name: " + model.getFullName());
+                holder.mTxtUsername.setText("Username: " + model.getUsername());
+                holder.mTxtPhone.setText("Phone: " + model.getPhone());
+                holder.mTxtTotalPrice.setText("Total Price: " + model.getTotalPrice() + "₫");
+                holder.mTxtAddress.setText("Addess: " + model.getAddress());
+                holder.mTxtDateTime.setText("Order at: " + model.getDate() + "  " + model.getTime());
+                holder.mTxtStateShip.setText("Status Ship: " + model.getState());
+
+                holder.mBtnShowOrders.setOnClickListener(new View.OnClickListener() {
                     @Override
-                    protected void onBindViewHolder(@NonNull AdminOrdersViewHolder holder, final int position, @NonNull final AdminOrders model) {
-                        holder.mTxtOrderID.setText("Order ID: " + model.getOrderID());
-                        holder.mTxtFullName.setText("Full Name: " + model.getFullName());
-                        holder.mTxtUsername.setText("Username: " + model.getUsername());
-                        holder.mTxtPhone.setText("Phone: " + model.getPhone());
-                        holder.mTxtTotalPrice.setText("Total Price: " + model.getTotalPrice() + "₫");
-                        holder.mTxtAddress.setText("Addess: " + model.getAddress());
-                        holder.mTxtDateTime.setText("Order at: " + model.getDate() + "  " + model.getTime());
-                        holder.mTxtStateShip.setText("Status Ship: " + model.getState());
+                    public void onClick(View view) {
+                        if (CheckConnection.isOnline(getContext())) {
+                            String uID = getRef(position).getKey();
+                            Intent intent = new Intent(getContext(), UserBooksActivity.class);
+                            intent.putExtra("uid", uID);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                });
 
-                        holder.mBtnShowOrders.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                String uID = getRef(position).getKey();
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (CheckConnection.isOnline(getContext())) {
+                            CharSequence options[] = new CharSequence[]
+                                    {
+                                            "Yes",
+                                            "No"
+                                    };
 
-                                Intent intent = new Intent(getContext(), UserBooksActivity.class);
-                                intent.putExtra("uid", uID);
-                                startActivity(intent);
-                            }
-                        });
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle("Do you want to ship this order ?");
 
-                        holder.itemView.setOnClickListener(new View.OnClickListener() {
-                            @Override
-                            public void onClick(View view) {
-                                CharSequence options[] = new CharSequence[]
-                                        {
-                                                "Yes",
-                                                "No"
-                                        };
-
-                                AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                                builder.setTitle("Do you want to ship this order ?");
-
-                                builder.setItems(options, new DialogInterface.OnClickListener() {
-                                    @Override
-                                    public void onClick(DialogInterface dialogInterface, int i) {
-                                        if (i == 0) {
-                                            String orderID = getRef(position).getKey();
-                                            HashMap<String, Object> newOrders = new HashMap<>();
-                                            newOrders.put("state", "shipped");
-                                            userOrdersRef.child(orderID).updateChildren(newOrders);
-                                            ordersRef.child(orderID).updateChildren(newOrders);
-                                        }
-                                        else {
-                                            String orderID = getRef(position).getKey();
-                                            HashMap<String, Object> newOrders = new HashMap<>();
-                                            newOrders.put("state", "not shipped");
-                                            userOrdersRef.child(orderID).updateChildren(newOrders);
-                                            ordersRef.child(orderID).updateChildren(newOrders);
-                                        }
+                            builder.setItems(options, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+                                    ordersRef = FirebaseDatabase.getInstance().getReference().child("Orders").child(Constants.currentOnlineUser.getUsername());
+                                    if (i == 0) {
+                                        String orderID = getRef(position).getKey();
+                                        HashMap<String, Object> newOrders = new HashMap<>();
+                                        newOrders.put("state", "shipped");
+                                        userOrdersRef.child(orderID).updateChildren(newOrders);
+                                        ordersRef.child(orderID).updateChildren(newOrders);
+                                    } else {
+                                        String orderID = getRef(position).getKey();
+                                        HashMap<String, Object> newOrders = new HashMap<>();
+                                        newOrders.put("state", "not shipped");
+                                        userOrdersRef.child(orderID).updateChildren(newOrders);
+                                        ordersRef.child(orderID).updateChildren(newOrders);
                                     }
-                                });
-                                builder.show();
-                            }
-                        });
+                                }
+                            });
+                            builder.show();
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
+                });
+            }
 
-                    @NonNull
-                    @Override
-                    public AdminOrdersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                        View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_orders_layout, parent, false);
-                        return new AdminOrdersViewHolder(view);
-                    }
-                };
+            @NonNull
+            @Override
+            public AdminOrdersViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_new_orders_layout, parent, false);
+                return new AdminOrdersViewHolder(view);
+            }
+        };
 
         mOrdersList.setAdapter(adapter);
         adapter.startListening();

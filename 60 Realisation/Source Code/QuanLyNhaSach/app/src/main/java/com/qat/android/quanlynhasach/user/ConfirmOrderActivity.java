@@ -7,6 +7,7 @@ import android.annotation.SuppressLint;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.util.Patterns;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -20,6 +21,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.squareup.picasso.Picasso;
@@ -94,8 +96,8 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         if (TextUtils.isEmpty(mEditTextFullName.getText().toString()) || mEditTextFullName.length() <= 5 || mEditTextFullName.length() >= 51) {
             Toast.makeText(ConfirmOrderActivity.this, "Full name must be 6 to 50 characters", Toast.LENGTH_SHORT).show();
             mBtnConfirmOrder.showNormalButton();
-        } else if (TextUtils.isEmpty(mEditTextPhone.getText().toString()) || mEditTextPhone.length() <= 6 || mEditTextPhone.length() >= 12) {
-            Toast.makeText(ConfirmOrderActivity.this, "Phone number must be 7 to 11 characters", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(mEditTextPhone.getText().toString()) || mEditTextPhone.length() <= 9 || mEditTextPhone.length() >= 13) {
+            Toast.makeText(ConfirmOrderActivity.this, "Phone number must be 10 to 12 characters", Toast.LENGTH_SHORT).show();
             mBtnConfirmOrder.showNormalButton();
         } else if (TextUtils.isEmpty(mEditTextAddress.getText().toString()) || mEditTextAddress.length() <= 9 || mEditTextAddress.length() >= 101) {
             Toast.makeText(ConfirmOrderActivity.this, "Address must be 10 to 100 characters", Toast.LENGTH_SHORT).show();
@@ -103,8 +105,11 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(mEditTextEmail.getText().toString()) || mEditTextEmail.length() <= 9 || mEditTextEmail.length() >= 51) {
             Toast.makeText(ConfirmOrderActivity.this, "Email must be 10 to 50 characters", Toast.LENGTH_SHORT).show();
             mBtnConfirmOrder.showNormalButton();
-        } else {
+        } else if (isValidEmail(mEditTextEmail.getText().toString())) {
             ConfirmOrder();
+        } else {
+            Toast.makeText(ConfirmOrderActivity.this, "Invalid email address", Toast.LENGTH_SHORT).show();
+            mBtnConfirmOrder.showNormalButton();
         }
     }
 
@@ -158,6 +163,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
                                         Toast.makeText(ConfirmOrderActivity.this, "Order Success", Toast.LENGTH_SHORT).show();
                                         mBtnConfirmOrder.showNormalButton();
                                         Intent intent = new Intent(ConfirmOrderActivity.this, MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                         startActivity(intent);
                                     }
                                 }
@@ -174,5 +180,7 @@ public class ConfirmOrderActivity extends AppCompatActivity {
         });
     }
 
-
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
+    }
 }

@@ -17,6 +17,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.squareup.picasso.Picasso;
 
@@ -72,11 +73,15 @@ public class MaintainBookActivity extends AppCompatActivity {
         productsRef.removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
-                Intent intent = new Intent(MaintainBookActivity.this, MainAdminActivity.class);
-                startActivity(intent);
-                finish();
-
-                Toast.makeText(MaintainBookActivity.this, "The Book is deleted successfully", Toast.LENGTH_SHORT).show();
+                if (CheckConnection.isOnline(MaintainBookActivity.this)) {
+                    Intent intent = new Intent(MaintainBookActivity.this, MainAdminActivity.class);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivity(intent);
+                    finish();
+                    Toast.makeText(MaintainBookActivity.this, "The Book is deleted successfully", Toast.LENGTH_SHORT).show();
+                } else {
+                    Toast.makeText(MaintainBookActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                }
             }
         });
     }
@@ -116,10 +121,15 @@ public class MaintainBookActivity extends AppCompatActivity {
                 @Override
                 public void onComplete(@NonNull Task<Void> task) {
                     if (task.isSuccessful()) {
-                        Toast.makeText(MaintainBookActivity.this, "Changes applied successfully.", Toast.LENGTH_SHORT).show();
-                        mBtnApplyChanges.showNormalButton();
-                        Intent intent = new Intent(MaintainBookActivity.this, MainAdminActivity.class);
-                        startActivity(intent);
+                        if (CheckConnection.isOnline(MaintainBookActivity.this)) {
+                            Toast.makeText(MaintainBookActivity.this, "Changes applied successfully.", Toast.LENGTH_SHORT).show();
+                            mBtnApplyChanges.showNormalButton();
+                            Intent intent = new Intent(MaintainBookActivity.this, MainAdminActivity.class);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(MaintainBookActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });

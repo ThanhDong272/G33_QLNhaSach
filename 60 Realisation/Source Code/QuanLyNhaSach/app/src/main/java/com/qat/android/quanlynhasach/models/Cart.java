@@ -1,18 +1,19 @@
 package com.qat.android.quanlynhasach.models;
 
 public class Cart {
-    private String pid, pname, image, price, quantity;
+    private String pid, pname, image, price, quantity, cartid;
 
     public Cart() {
 
     }
 
-    public Cart(String pid, String pname, String image, String price, String quantity) {
+    public Cart(String pid, String pname, String image, String price, String quantity, String cartid) {
         this.pid = pid;
         this.pname = pname;
         this.image = image;
         this.price = price;
         this.quantity = quantity;
+        this.cartid = cartid;
     }
 
     public String getPid() {
@@ -53,5 +54,13 @@ public class Cart {
 
     public void setQuantity(String quantity) {
         this.quantity = quantity;
+    }
+
+    public String getCartid() {
+        return cartid;
+    }
+
+    public void setCartid(String cartid) {
+        this.cartid = cartid;
     }
 }

@@ -19,6 +19,7 @@ import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.qat.android.quanlynhasach.R;
+import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Cart;
 import com.qat.android.quanlynhasach.view_holder.CartViewHolder;
 
@@ -35,7 +36,7 @@ public class UserBooksActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_admin_user_books);
 
-        userID = getIntent().getStringExtra("uid");
+//        userID = getIntent().getStringExtra("uid");
 
         mBooksList = findViewById(R.id.recycler_menu_user_products);
         mBooksList.setHasFixedSize(true);
@@ -43,13 +44,12 @@ public class UserBooksActivity extends AppCompatActivity {
         mBooksList.setLayoutManager(layoutManager);
 
 
-        cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List").child("Admin View").child(userID).child("Products");
+        cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List").child("Admin View").child(Constants.currentOnlineUser.getUsername()).child("Products");
     }
 
     @Override
     protected void onStart() {
         super.onStart();
-
 
         FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
                 .setQuery(cartListRef, Cart.class)

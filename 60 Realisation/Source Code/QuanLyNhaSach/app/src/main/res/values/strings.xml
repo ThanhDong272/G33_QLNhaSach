@@ -2,7 +2,8 @@
     <string name="app_name">Book Store</string>
 
     <!--    Login Screen-->
-    <string name="logo_name">BookStore</string>
+    <string name="login_name">Login</string>
+    <string name="sign_up_name">Sign Up</string>
     <string name="user_name">Username</string>
     <string name="password_name">Password</string>
     <string name="no_account">Don\'t have an account?</string>
@@ -88,6 +89,7 @@
     <string name="item_phone_name">Phone</string>
     <string name="item_email_name">Email</string>
     <string name="item_address_name">Address</string>
+    <string name="no_account_yet">You have no customer account yet</string>
 
     <!--    Detail Account List-->
     <string name="detail_user_name">Username:</string>
@@ -127,4 +129,10 @@
 
     <!--    My Order-->
     <string name="not_order_yet">You have no order yet</string>
+
+    <!--    Spinner Sex-->
+    <string-array name="spinner_item_sex">
+        <item>Male</item>
+        <item>Female</item>
+    </string-array>
 </resources>

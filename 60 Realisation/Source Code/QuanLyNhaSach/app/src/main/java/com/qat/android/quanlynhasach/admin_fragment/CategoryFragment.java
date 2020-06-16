@@ -49,6 +49,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "science");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -58,6 +59,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "text");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -67,6 +69,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "children");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -76,6 +79,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "foreign");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -85,6 +89,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "comic");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -94,6 +99,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "history");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -103,6 +109,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "political");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });
@@ -112,6 +119,7 @@ public class CategoryFragment extends Fragment {
             public void onClick(View view) {
                 Intent intent = new Intent(getContext(), AddBookActivity.class);
                 intent.putExtra("category", "economy");
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivity(intent);
             }
         });

@@ -23,6 +23,7 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.UploadTask;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 
 import java.text.SimpleDateFormat;
@@ -112,7 +113,7 @@ public class AddBookActivity extends AppCompatActivity {
         } else if (TextUtils.isEmpty(mPrice) || mEditTextProductPrice.length() <= 3 || mEditTextProductPrice.length() >= 7) {
             Toast.makeText(this, "Book price must be 4 to 6 characters", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
-        }  else if (TextUtils.isEmpty(mAuthor)) {
+        } else if (TextUtils.isEmpty(mAuthor)) {
             Toast.makeText(this, "Author must not be null", Toast.LENGTH_SHORT).show();
             mBtnAddProduct.showNormalButton();
         } else if (TextUtils.isEmpty(mReleaseDate)) {
@@ -196,15 +197,17 @@ public class AddBookActivity extends AppCompatActivity {
             @Override
             public void onComplete(@NonNull Task<Void> task) {
                 if (task.isSuccessful()) {
-                    Intent intent = new Intent(AddBookActivity.this, MainAdminActivity.class);
-                    startActivity(intent);
+                    if (CheckConnection.isOnline(AddBookActivity.this)) {
+                        Intent intent = new Intent(AddBookActivity.this, MainAdminActivity.class);
+                        intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                        startActivity(intent);
 
-                    mBtnAddProduct.showNormalButton();
-                    Toast.makeText(AddBookActivity.this, "Book is added successfully", Toast.LENGTH_SHORT).show();
-                } else {
-                    mBtnAddProduct.showNormalButton();
-                    String message = task.getException().toString();
-                    Toast.makeText(AddBookActivity.this, "Error: " + message, Toast.LENGTH_SHORT).show();
+                        Toast.makeText(AddBookActivity.this, "Book is added successfully", Toast.LENGTH_SHORT).show();
+                        mBtnAddProduct.showNormalButton();
+                    } else {
+                        Toast.makeText(AddBookActivity.this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        mBtnAddProduct.showNormalButton();
+                    }
                 }
             }
         });

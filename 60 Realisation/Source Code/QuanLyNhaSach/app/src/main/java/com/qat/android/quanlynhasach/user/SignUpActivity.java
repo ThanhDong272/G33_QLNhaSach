@@ -3,12 +3,10 @@ package com.qat.android.quanlynhasach.user;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
+import android.text.InputFilter;
+import android.text.Spanned;
 import android.text.TextUtils;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -44,13 +42,13 @@ public class SignUpActivity extends AppCompatActivity {
         mBtnSignUp.setMyButtonClickListener(new MyLoadingButton.MyLoadingButtonClick() {
             @Override
             public void onMyLoadingButtonClick() {
-                CreateAccount();
+                createAccount();
             }
         });
 
     }
 
-    private void CreateAccount() {
+    private void createAccount() {
         String username = mEditTextUsername.getText().toString();
         String password = mEditTextPassword.getText().toString();
         String confirmPassword = mEditTextConfirmPassword.getText().toString();
@@ -68,14 +66,14 @@ public class SignUpActivity extends AppCompatActivity {
             Toast.makeText(this, "Confirm password doesn't match", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
         } else if (CheckConnection.isOnline(SignUpActivity.this)) {
-            ValidatephoneNumber(username, password, confirmPassword);
+            validateUsername(username, password, confirmPassword);
         } else {
             Toast.makeText(this, "Please check your internet connection", Toast.LENGTH_SHORT).show();
             mBtnSignUp.showNormalButton();
         }
     }
 
-    private void ValidatephoneNumber(final String username, final String password, final String phone) {
+    private void validateUsername(final String username, final String password, final String phone) {
         final DatabaseReference RootRef;
         RootRef = FirebaseDatabase.getInstance().getReference();
 
@@ -94,6 +92,7 @@ public class SignUpActivity extends AppCompatActivity {
                                 Toast.makeText(SignUpActivity.this, "Congratulations, your account has been created.", Toast.LENGTH_SHORT).show();
                                 mBtnSignUp.showNormalButton();
                                 Intent intent = new Intent(SignUpActivity.this, LoginActivity.class);
+                                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                                 startActivity(intent);
                             }
                         }
@@ -110,4 +109,6 @@ public class SignUpActivity extends AppCompatActivity {
             }
         });
     }
+
+
 }

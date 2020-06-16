@@ -53,7 +53,6 @@ public class HomeFragment extends Fragment {
 //    private ArrayList<Books> mListBooks;
 //    private BookAdapter mAdapter;
 
-    private SwipeRefreshLayout mSwipeRefreshHome;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -69,8 +68,6 @@ public class HomeFragment extends Fragment {
 //        mEditTextSearch = getActivity().findViewById(R.id.edit_search_field);
 //        mListBooks = new ArrayList<>();
 
-        mSwipeRefreshHome = getActivity().findViewById(R.id.swipe_refresh_home);
-
         Paper.init(getContext());
 
         ProductsRef = FirebaseDatabase.getInstance().getReference().child("Products");
@@ -83,101 +80,52 @@ public class HomeFragment extends Fragment {
         mRecyclerView.setHasFixedSize(true);
         RecyclerView.LayoutManager layoutManager = new LinearLayoutManager(getContext());
         mRecyclerView.setLayoutManager(new GridLayoutManager(getContext(), 2));
-
-        checkInternetConnection();
-
-        mSwipeRefreshHome.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                mSwipeRefreshHome.setRefreshing(true);
-                (new Handler()).postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        mSwipeRefreshHome.setRefreshing(false);
-                        FirebaseRecyclerOptions<Books> options = new FirebaseRecyclerOptions.Builder<Books>()
-                                .setQuery(ProductsRef, Books.class)
-                                .build();
-
-                        FirebaseRecyclerAdapter<Books, BookViewHolder> adapter = new FirebaseRecyclerAdapter<Books, BookViewHolder>(options) {
-                            @SuppressLint("SetTextI18n")
-                            @Override
-                            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Books model) {
-                                holder.mTxtBookName.setText(model.getPname());
-                                holder.mTxtBookPrice.setText(model.getPrice() + "₫");
-                                Picasso.get().load(model.getImage()).into(holder.imageView);
-
-                                holder.itemView.setOnClickListener(new View.OnClickListener() {
-                                    @Override
-                                    public void onClick(View view) {
-                                        Intent intent = new Intent(getContext(), BookDetailActivity.class);
-                                        intent.putExtra("pid", model.getPid());
-                                        startActivity(intent);
-                                    }
-                                });
-                            }
-
-                            @NonNull
-                            @Override
-                            public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book_layout, parent, false);
-                                BookViewHolder holder = new BookViewHolder(view);
-                                return holder;
-                            }
-                        };
-                        mRecyclerView.setAdapter(adapter);
-                        adapter.startListening();
-                    }
-                }, 2000);
-            }
-        });
     }
 
 
-//    @Override
-//    public void onStart() {
-//        super.onStart();
-//
-//
-//    }
+    @Override
+    public void onStart() {
+        super.onStart();
 
-    private void checkInternetConnection() {
-        if (CheckConnection.isOnline(getContext())) {
-            FirebaseRecyclerOptions<Books> options = new FirebaseRecyclerOptions.Builder<Books>()
-                    .setQuery(ProductsRef, Books.class)
-                    .build();
+        FirebaseRecyclerOptions<Books> options = new FirebaseRecyclerOptions.Builder<Books>()
+                .setQuery(ProductsRef, Books.class)
+                .build();
 
-            FirebaseRecyclerAdapter<Books, BookViewHolder> adapter = new FirebaseRecyclerAdapter<Books, BookViewHolder>(options) {
-                @SuppressLint("SetTextI18n")
-                @Override
-                protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Books model) {
-                    holder.mTxtBookName.setText(model.getPname());
-                    holder.mTxtBookPrice.setText(model.getPrice() + "₫");
-                    Picasso.get().load(model.getImage()).into(holder.imageView);
+        FirebaseRecyclerAdapter<Books, BookViewHolder> adapter = new FirebaseRecyclerAdapter<Books, BookViewHolder>(options) {
+            @SuppressLint("SetTextI18n")
+            @Override
+            protected void onBindViewHolder(@NonNull BookViewHolder holder, int position, @NonNull final Books model) {
+                holder.mTxtBookName.setText(model.getPname());
+                holder.mTxtBookPrice.setText(model.getPrice() + "₫");
+                Picasso.get().load(model.getImage()).into(holder.imageView);
 
-                    holder.itemView.setOnClickListener(new View.OnClickListener() {
-                        @Override
-                        public void onClick(View view) {
+                holder.itemView.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+                        if (CheckConnection.isOnline(getContext())) {
                             Intent intent = new Intent(getContext(), BookDetailActivity.class);
                             intent.putExtra("pid", model.getPid());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                             startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
                         }
-                    });
-                }
+                    }
+                });
+            }
 
-                @NonNull
-                @Override
-                public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-                    View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book_layout, parent, false);
-                    BookViewHolder holder = new BookViewHolder(view);
-                    return holder;
-                }
-            };
-            mRecyclerView.setAdapter(adapter);
-            adapter.startListening();
-        } else {
-            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
-        }
+            @NonNull
+            @Override
+            public BookViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+                View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_book_layout, parent, false);
+                BookViewHolder holder = new BookViewHolder(view);
+                return holder;
+            }
+        };
+        mRecyclerView.setAdapter(adapter);
+        adapter.startListening();
     }
+
 
     //    @Override
 //    public void onStart() {

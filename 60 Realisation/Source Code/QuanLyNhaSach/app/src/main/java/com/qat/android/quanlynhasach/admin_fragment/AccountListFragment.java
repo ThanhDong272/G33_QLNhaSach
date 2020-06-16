@@ -21,8 +21,12 @@ import com.firebase.ui.database.FirebaseRecyclerAdapter;
 import com.firebase.ui.database.FirebaseRecyclerOptions;
 import com.google.android.gms.tasks.OnCompleteListener;
 import com.google.android.gms.tasks.Task;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.DetailAccountActivity;
 import com.qat.android.quanlynhasach.constants.Constants;
@@ -40,6 +44,8 @@ public class AccountListFragment extends Fragment {
     private RecyclerView recyclerView;
     RecyclerView.LayoutManager layoutManager;
 
+    private TextView mTxtCheckAccount;
+
     private DatabaseReference accountListRef;
 
     @Override
@@ -55,6 +61,8 @@ public class AccountListFragment extends Fragment {
 
         accountListRef = FirebaseDatabase.getInstance().getReference().child("Users");
 
+        mTxtCheckAccount = getActivity().findViewById(R.id.txt_no_account_yet);
+
         //Action Bar
         AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("Account List");
@@ -68,6 +76,8 @@ public class AccountListFragment extends Fragment {
     @Override
     public void onStart() {
         super.onStart();
+
+        checkAccount();
 
         FirebaseRecyclerOptions<Users> options = new FirebaseRecyclerOptions.Builder<Users>()
                 .setQuery(accountListRef, Users.class)
@@ -85,10 +95,15 @@ public class AccountListFragment extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String uID = getRef(position).getKey();
-                        Intent intent = new Intent(getContext(), DetailAccountActivity.class);
-                        intent.putExtra("userID", uID);
-                        startActivity(intent);
+                        if (CheckConnection.isOnline(getContext())) {
+                            String uID = getRef(position).getKey();
+                            Intent intent = new Intent(getContext(), DetailAccountActivity.class);
+                            intent.putExtra("userID", uID);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
@@ -105,5 +120,23 @@ public class AccountListFragment extends Fragment {
 
         recyclerView.setAdapter(adapter);
         adapter.startListening();
+    }
+
+    private void checkAccount() {
+        accountListRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+
+                } else {
+                    mTxtCheckAccount.setVisibility(View.VISIBLE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 }

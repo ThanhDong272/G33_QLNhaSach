@@ -27,6 +27,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.models.Cart;
@@ -84,10 +85,13 @@ public class CartFragment extends Fragment {
                             .replace(R.id.fragment_container, new HomeFragment())
                             .commit();
                     Toast.makeText(getContext(), "You haven't bought any books yet", Toast.LENGTH_SHORT).show();
-                } else {
+                } else if (CheckConnection.isOnline(getContext())) {
                     Intent intent = new Intent(getContext(), ConfirmOrderActivity.class);
                     intent.putExtra("Total Price", String.valueOf(overTotalPrice));
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                     startActivity(intent);
+                } else {
+                    Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
                 }
             }
         });
@@ -102,10 +106,9 @@ public class CartFragment extends Fragment {
 
         cartListRef = FirebaseDatabase.getInstance().getReference().child("Cart List");
 
-        FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>()
-                .setQuery(cartListRef.child("User View")
-                        .child(Constants.currentOnlineUser.getUsername())
-                        .child("Products"), Cart.class)
+        FirebaseRecyclerOptions<Cart> options = new FirebaseRecyclerOptions.Builder<Cart>().setQuery(cartListRef.child("User View")
+                .child(Constants.currentOnlineUser.getUsername())
+                .child("Products"), Cart.class)
                 .build();
 
         FirebaseRecyclerAdapter<Cart, CartViewHolder> adapter = new FirebaseRecyclerAdapter<Cart, CartViewHolder>(options) {
@@ -124,42 +127,53 @@ public class CartFragment extends Fragment {
                 holder.itemView.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        Intent intent = new Intent(getContext(), BookDetailActivity.class);
-                        intent.putExtra("pid", model.getPid());
-                        startActivity(intent);
+                        if (CheckConnection.isOnline(getContext())) {
+                            Intent intent = new Intent(getContext(), BookDetailActivity.class);
+                            intent.putExtra("pid", model.getPid());
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
 
                 holder.mImgClose.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        cartListRef.child("User View")
-                                .child(Constants.currentOnlineUser.getUsername())
-                                .child("Products")
-                                .child(model.getPid())
-                                .removeValue()
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
-                                        if (task.isSuccessful()) {
-                                            Toast.makeText(getContext(), "Item removed successfully.", Toast.LENGTH_SHORT).show();
+                        if (CheckConnection.isOnline(getContext())) {
+                            cartListRef.child("User View")
+                                    .child(Constants.currentOnlineUser.getUsername())
+                                    .child("Products")
+                                    .child(model.getPid())
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
+                                            if (task.isSuccessful()) {
+                                                Toast.makeText(getContext(), "Item removed successfully.", Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
-                                });
-                        cartListRef.child("Admin View")
-                                .child(Constants.currentOnlineUser.getUsername())
-                                .child("Products")
-                                .child(model.getPid())
-                                .removeValue()
-                                .addOnCompleteListener(new OnCompleteListener<Void>() {
-                                    @Override
-                                    public void onComplete(@NonNull Task<Void> task) {
+                                    });
+                            cartListRef.child("Admin View")
+                                    .child(Constants.currentOnlineUser.getUsername())
+                                    .child("Products")
+                                    .child(model.getPid())
+                                    .removeValue()
+                                    .addOnCompleteListener(new OnCompleteListener<Void>() {
+                                        @Override
+                                        public void onComplete(@NonNull Task<Void> task) {
 
-                                    }
-                                });
-                        int oneTypeProductTPrice = ((Integer.parseInt(model.getPrice()))) * Integer.parseInt(model.getQuantity());
-                        overTotalPrice = overTotalPrice - oneTypeProductTPrice;
-                        mTxtTotalPrice.setText(String.valueOf(overTotalPrice) + "₫");
+                                        }
+                                    });
+                            int oneTypeProductTPrice = ((Integer.parseInt(model.getPrice()))) * Integer.parseInt(model.getQuantity());
+                            overTotalPrice = overTotalPrice - oneTypeProductTPrice;
+                            mTxtTotalPrice.setText(String.valueOf(overTotalPrice) + "₫");
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
             }

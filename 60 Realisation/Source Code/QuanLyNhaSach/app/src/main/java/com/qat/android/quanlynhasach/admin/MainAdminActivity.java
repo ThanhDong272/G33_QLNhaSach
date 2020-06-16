@@ -88,6 +88,7 @@ public class MainAdminActivity extends AppCompatActivity implements NavigationVi
             case R.id.nav_logout:
                 Paper.book().destroy();
                 Intent intent = new Intent(MainAdminActivity.this, LoginActivity.class);
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                 startActivity(intent);
                 finish();
@@ -98,9 +99,11 @@ public class MainAdminActivity extends AppCompatActivity implements NavigationVi
         return true;
     }
 
-
     @Override
     public void onBackPressed() {
-
+        Intent intent = new Intent(Intent.ACTION_MAIN);
+        intent.addCategory(Intent.CATEGORY_HOME);
+        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        startActivity(intent);
     }
 }

@@ -29,6 +29,7 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.admin.UserBooksActivity;
 import com.qat.android.quanlynhasach.admin_fragment.NewOrdersFragment;
@@ -95,49 +96,60 @@ public class MyOrderFragment extends Fragment {
                 holder.mBtnShowBooks.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        String uID = getRef(position).getKey();
+                        if (CheckConnection.isOnline(getContext())) {
+                            String uID = getRef(position).getKey();
 
-                        Intent intent = new Intent(getContext(), UserBooksActivity.class);
-                        intent.putExtra("uid", uID);
-                        startActivity(intent);
+                            Intent intent = new Intent(getContext(), UserBooksActivity.class);
+                            intent.putExtra("uid", uID);
+                            intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                            startActivity(intent);
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 });
 
                 holder.mBtnCancelOrder.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        CharSequence options[] = new CharSequence[]
-                                {
-                                        "Yes",
-                                        "No"
-                                };
+                        if (CheckConnection.isOnline(getContext())) {
+                            CharSequence options[] = new CharSequence[]
+                                    {
+                                            "Yes",
+                                            "No"
+                                    };
 
-                        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                        builder.setTitle("Do you want to cancel this order ?");
+                            AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+                            builder.setTitle("Do you want to cancel this order ?");
 
-                        builder.setItems(options, new DialogInterface.OnClickListener() {
-                            @Override
-                            public void onClick(DialogInterface dialogInterface, int i) {
-                                if (i == 0) {
-                                    String orderID = getRef(position).getKey();
-                                    myOrdersRef.child(orderID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
-                                            if (task.isSuccessful()) {
-                                                Toast.makeText(getContext(), "Cancer Order Successfully", Toast.LENGTH_SHORT).show();
+                            builder.setItems(options, new DialogInterface.OnClickListener() {
+                                @Override
+                                public void onClick(DialogInterface dialogInterface, int i) {
+
+                                    if (i == 0) {
+                                        String orderID = getRef(position).getKey();
+                                        myOrdersRef.child(orderID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
+                                                if (task.isSuccessful()) {
+                                                    Toast.makeText(getContext(), "Cancer Order Successfully", Toast.LENGTH_SHORT).show();
+                                                }
                                             }
-                                        }
-                                    });
-                                    userOrderRef.child(orderID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
-                                        @Override
-                                        public void onComplete(@NonNull Task<Void> task) {
+                                        });
+                                        userOrderRef.child(orderID).removeValue().addOnCompleteListener(new OnCompleteListener<Void>() {
+                                            @Override
+                                            public void onComplete(@NonNull Task<Void> task) {
 
-                                        }
-                                    });
+                                            }
+                                        });
+                                    }
                                 }
-                            }
-                        });
-                        builder.show();
+                            });
+                            builder.show();
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
+
                     }
                 });
             }

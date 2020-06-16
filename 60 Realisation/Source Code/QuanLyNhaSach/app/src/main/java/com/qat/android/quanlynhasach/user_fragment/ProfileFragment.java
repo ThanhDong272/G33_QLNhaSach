@@ -10,12 +10,17 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 
+import android.text.Editable;
 import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.util.Patterns;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.example.myloadingbutton.MyLoadingButton;
@@ -30,6 +35,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 import com.google.firebase.storage.StorageTask;
+import com.qat.android.quanlynhasach.CheckConnection;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.user.MainActivity;
@@ -45,8 +51,9 @@ import static android.app.Activity.RESULT_OK;
 public class ProfileFragment extends Fragment {
 
     private CircleImageView mImgProfile;
-    private EditText mEditTextFullName, mEditTextSex,
-            mEditTextPhoneNumber, mEditTextAddress, mEditTextEmail;
+    private EditText mEditTextFullName, mEditTextPhoneNumber,
+            mEditTextAddress, mEditTextEmail;
+    private Spinner mSpinnerSex;
     private MyLoadingButton mBtnUpdateProfile;
 
     private Uri mImgUri;
@@ -66,6 +73,11 @@ public class ProfileFragment extends Fragment {
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
+        mSpinnerSex = getActivity().findViewById(R.id.spinner_sex);
+        ArrayAdapter<CharSequence> adapter = ArrayAdapter.createFromResource(getContext(), R.array.spinner_item_sex, R.layout.spinner_item_sex);
+        adapter.setDropDownViewResource(R.layout.spinner_item_dropdown_sex);
+        mSpinnerSex.setAdapter(adapter);
+
         //Action Bar
         final AppCompatActivity activity = (AppCompatActivity) getActivity();
         activity.getSupportActionBar().setTitle("Profile");
@@ -74,7 +86,6 @@ public class ProfileFragment extends Fragment {
 
         mImgProfile = getActivity().findViewById(R.id.img_profile);
         mEditTextFullName = getActivity().findViewById(R.id.edit_full_name);
-        mEditTextSex = getActivity().findViewById(R.id.edit_sex);
         mEditTextPhoneNumber = getActivity().findViewById(R.id.edit_phone_number);
         mEditTextAddress = getActivity().findViewById(R.id.edit_address);
         mEditTextEmail = getActivity().findViewById(R.id.edit_email);
@@ -86,18 +97,14 @@ public class ProfileFragment extends Fragment {
                 Intent intent = CropImage.activity()
                         .setAspectRatio(1, 1)
                         .getIntent(getActivity());
+                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
                 startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
-//                getActivity().getFragmentManager().popBackStack();
-//                CropImage.activity(imageUri)
-//                        .setAspectRatio(1, 1)
-//                        .start((Activity) getContext());
             }
         });
 
         mBtnUpdateProfile = getActivity().findViewById(R.id.btn_update_profile);
 
-        userInfoDisplay(mImgProfile, mEditTextFullName, mEditTextSex,
-                mEditTextPhoneNumber, mEditTextAddress, mEditTextEmail);
+        userInfoDisplay(mImgProfile, mEditTextFullName, mSpinnerSex, mEditTextPhoneNumber, mEditTextAddress, mEditTextEmail);
 
         mBtnUpdateProfile.setMyButtonClickListener(new MyLoadingButton.MyLoadingButtonClick() {
             @Override
@@ -111,7 +118,7 @@ public class ProfileFragment extends Fragment {
         });
     }
 
-    private void userInfoDisplay(final CircleImageView mImgProfile, final EditText mEditTextFullName, final EditText mEditTextSex,
+    private void userInfoDisplay(final CircleImageView mImgProfile, final EditText mEditTextFullName, final Spinner mSpinnerSex,
                                  final EditText mEditTextPhoneNumber, final EditText mEditTextAddress, final EditText mEditTextEmail) {
 
         DatabaseReference UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(Constants.currentOnlineUser.getUsername());
@@ -130,7 +137,7 @@ public class ProfileFragment extends Fragment {
 
                         Picasso.get().load(image).into(mImgProfile);
                         mEditTextFullName.setText(fullName);
-                        mEditTextSex.setText(sex);
+                        mSpinnerSex.setPrompt(sex);
                         mEditTextPhoneNumber.setText(phone);
                         mEditTextAddress.setText(address);
                         mEditTextEmail.setText(email);
@@ -150,7 +157,7 @@ public class ProfileFragment extends Fragment {
 
         HashMap<String, Object> userMap = new HashMap<>();
         userMap.put("fullName", mEditTextFullName.getText().toString());
-        userMap.put("sex", mEditTextSex.getText().toString());
+        userMap.put("sex", mSpinnerSex.getSelectedItem().toString());
         userMap.put("phone", mEditTextPhoneNumber.getText().toString());
         userMap.put("address", mEditTextAddress.getText().toString());
         userMap.put("email", mEditTextEmail.getText().toString());
@@ -175,7 +182,7 @@ public class ProfileFragment extends Fragment {
 
     private void userInfoSaved() {
         String fullName = mEditTextFullName.getText().toString();
-        String sex = mEditTextSex.getText().toString();
+        String sex = mSpinnerSex.getSelectedItem().toString();
         String phoneNumber = mEditTextPhoneNumber.getText().toString();
         String address = mEditTextAddress.getText().toString();
         String email = mEditTextEmail.getText().toString();
@@ -183,11 +190,11 @@ public class ProfileFragment extends Fragment {
         if (TextUtils.isEmpty(fullName) || mEditTextFullName.length() <= 5 || mEditTextFullName.length() >= 51) {
             Toast.makeText(getContext(), "Full name must be 6 to 50 characters", Toast.LENGTH_SHORT).show();
             mBtnUpdateProfile.showNormalButton();
-        } else if (TextUtils.isEmpty(sex) || mEditTextSex.length() <= 1 || mEditTextSex.length() >= 4) {
-            Toast.makeText(getContext(), "Sex must be 2 or 3 characters", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(sex)) {
+            Toast.makeText(getContext(), "Sex is mandatory", Toast.LENGTH_SHORT).show();
             mBtnUpdateProfile.showNormalButton();
-        } else if (TextUtils.isEmpty(phoneNumber) || mEditTextPhoneNumber.length() <= 6 || mEditTextPhoneNumber.length() >= 12) {
-            Toast.makeText(getContext(), "Phone number must be 7 to 11 characters", Toast.LENGTH_SHORT).show();
+        } else if (TextUtils.isEmpty(phoneNumber) || mEditTextPhoneNumber.length() <= 9 || mEditTextPhoneNumber.length() >= 13) {
+            Toast.makeText(getContext(), "Phone number must be 10 to 12 characters", Toast.LENGTH_SHORT).show();
             mBtnUpdateProfile.showNormalButton();
         } else if (TextUtils.isEmpty(address) || mEditTextAddress.length() <= 9 || mEditTextAddress.length() >= 101) {
             Toast.makeText(getContext(), "Address must be 10 to 100 characters", Toast.LENGTH_SHORT).show();
@@ -195,8 +202,11 @@ public class ProfileFragment extends Fragment {
         } else if (TextUtils.isEmpty(email) || mEditTextEmail.length() <= 9 || mEditTextEmail.length() >= 51) {
             Toast.makeText(getContext(), "Email must be 10 to 50 characters", Toast.LENGTH_SHORT).show();
             mBtnUpdateProfile.showNormalButton();
-        } else if (checker.equals("clicked")) {
+        } else if (checker.equals("clicked") && isValidEmail(email)) {
             uploadImage();
+        } else {
+            Toast.makeText(getContext(), "Invalid email address", Toast.LENGTH_SHORT).show();
+            mBtnUpdateProfile.showNormalButton();
         }
     }
 
@@ -225,33 +235,40 @@ public class ProfileFragment extends Fragment {
                 @Override
                 public void onComplete(@NonNull Task<Uri> task) {
                     if (task.isSuccessful()) {
-                        Uri downloadUrl = task.getResult();
-                        myUrl = downloadUrl.toString();
+                        if (CheckConnection.isOnline(getContext())) {
+                            Uri downloadUrl = task.getResult();
+                            myUrl = downloadUrl.toString();
 
-                        DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
+                            DatabaseReference ref = FirebaseDatabase.getInstance().getReference().child("Users");
 
-                        HashMap<String, Object> userMap = new HashMap<>();
-                        userMap.put("fullName", mEditTextFullName.getText().toString());
-                        userMap.put("sex", mEditTextSex.getText().toString());
-                        userMap.put("phone", mEditTextPhoneNumber.getText().toString());
-                        userMap.put("address", mEditTextAddress.getText().toString());
-                        userMap.put("email", mEditTextEmail.getText().toString());
-                        userMap.put("image", myUrl);
-                        ref.child(Constants.currentOnlineUser.getUsername()).updateChildren(userMap);
+                            HashMap<String, Object> userMap = new HashMap<>();
+                            userMap.put("fullName", mEditTextFullName.getText().toString());
+                            userMap.put("sex", mSpinnerSex.getSelectedItem().toString());
+                            userMap.put("phone", mEditTextPhoneNumber.getText().toString());
+                            userMap.put("address", mEditTextAddress.getText().toString());
+                            userMap.put("email", mEditTextEmail.getText().toString());
+                            userMap.put("image", myUrl);
+                            ref.child(Constants.currentOnlineUser.getUsername()).updateChildren(userMap);
 
-                        progressDialog.dismiss();
+                            progressDialog.dismiss();
 
-                        startActivity(new Intent(getContext(), MainActivity.class));
-                        Toast.makeText(getContext(), "Profile Info update successfully.", Toast.LENGTH_SHORT).show();
-                        getActivity().finish();
-                    } else {
-                        progressDialog.dismiss();
-                        Toast.makeText(getContext(), "Error.", Toast.LENGTH_SHORT).show();
+                            startActivity(new Intent(getContext(), MainActivity.class));
+                            Toast.makeText(getContext(), "Profile Info update successfully.", Toast.LENGTH_SHORT).show();
+                            getActivity().finish();
+                        } else {
+                            Toast.makeText(getContext(), "Please check your internet connection", Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             });
         } else {
+            progressDialog.dismiss();
             Toast.makeText(getContext(), "Image is not selected.", Toast.LENGTH_SHORT).show();
+            mBtnUpdateProfile.showNormalButton();
         }
+    }
+
+    public static boolean isValidEmail(CharSequence target) {
+        return (!TextUtils.isEmpty(target) && Patterns.EMAIL_ADDRESS.matcher(target).matches());
     }
 }

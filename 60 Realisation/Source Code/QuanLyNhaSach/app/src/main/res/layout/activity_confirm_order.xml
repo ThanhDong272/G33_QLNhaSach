@@ -31,6 +31,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginEnd="20dp"
             android:backgroundTint="@android:color/white"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ "
             android:hint="@string/fullname_name"
             android:imeOptions="actionNext"
             android:inputType="text"
@@ -66,7 +67,8 @@
             android:inputType="text"
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
 
         <EditText
             android:id="@+id/edit_confirm_order_email"

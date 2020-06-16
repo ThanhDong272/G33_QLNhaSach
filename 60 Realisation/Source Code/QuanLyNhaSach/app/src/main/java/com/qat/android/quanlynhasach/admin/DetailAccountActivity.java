@@ -54,7 +54,7 @@ public class DetailAccountActivity extends AppCompatActivity {
             @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
-                if (dataSnapshot.exists()) {
+                if (dataSnapshot.child("image").exists()) {
                     String username = dataSnapshot.child("username").getValue().toString();
                     String password = dataSnapshot.child("password").getValue().toString();
                     String fullName = dataSnapshot.child("fullName").getValue().toString();
@@ -73,7 +73,22 @@ public class DetailAccountActivity extends AppCompatActivity {
                     mTxtDetailAddress.setText(address);
                     Picasso.get().load(image).into(mCircleImgDetail);
                 } else {
+                    String username = dataSnapshot.child("username").getValue().toString();
+                    String password = dataSnapshot.child("password").getValue().toString();
+                    String fullName = dataSnapshot.child("fullName").getValue().toString();
+                    String sex = dataSnapshot.child("sex").getValue().toString();
+                    String phone = dataSnapshot.child("phone").getValue().toString();
+                    String email = dataSnapshot.child("email").getValue().toString();
+                    String address = dataSnapshot.child("address").getValue().toString();
 
+                    mTxtDetailUsername.setText(username);
+                    mTxtDetailPassword.setText(password);
+                    mTxtDetailFullName.setText(fullName);
+                    mTxtDetailSex.setText(sex);
+                    mTxtDetailPhone.setText(phone);
+                    mTxtDetailEmail.setText(email);
+                    mTxtDetailAddress.setText(address);
+                    Picasso.get().load(R.drawable.img_profile).into(mCircleImgDetail);
                 }
             }
 

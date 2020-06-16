@@ -58,7 +58,8 @@
             android:inputType="number"
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            android:digits="0123456789 "/>
 
         <EditText
             android:id="@+id/edit_product_author"
