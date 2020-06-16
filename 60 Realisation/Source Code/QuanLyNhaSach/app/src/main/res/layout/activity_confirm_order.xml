@@ -68,7 +68,7 @@
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
             android:textSize="16sp"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
+            android:digits="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ,. "/>
 
         <EditText
             android:id="@+id/edit_confirm_order_email"
