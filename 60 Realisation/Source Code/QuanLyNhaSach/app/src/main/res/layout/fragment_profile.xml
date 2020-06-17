@@ -36,8 +36,7 @@
             android:inputType="text"
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
-            android:textSize="16sp"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ "/>
+            android:textSize="16sp" />
 
         <Spinner
             android:id="@+id/spinner_sex"
@@ -78,8 +77,7 @@
             android:inputType="text"
             android:textColor="@android:color/white"
             android:textColorHint="@color/colorHint"
-            android:textSize="16sp"
-            android:digits="abcdefghijklmnopqrstuvwxyz0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZ,. "/>
+            android:textSize="16sp" />
 
         <EditText
             android:id="@+id/edit_email"

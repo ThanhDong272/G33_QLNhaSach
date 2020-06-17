@@ -1,5 +1,6 @@
 package com.qat.android.quanlynhasach.user_fragment;
 
+import android.annotation.SuppressLint;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.net.Uri;
@@ -60,7 +61,7 @@ public class ProfileFragment extends Fragment {
     private String myUrl = "";
     private StorageTask uploadTask;
     private StorageReference storageProfilePrictureRef;
-    private String checker = "";
+    private String checker = "clicked";
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -93,12 +94,15 @@ public class ProfileFragment extends Fragment {
         mImgProfile.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                checker = "clicked";
-                Intent intent = CropImage.activity()
-                        .setAspectRatio(1, 1)
-                        .getIntent(getActivity());
-                intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
-                startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+                if (checker.equals("clicked")) {
+                    Intent intent = CropImage.activity()
+                            .setAspectRatio(1, 1)
+                            .getIntent(getActivity());
+                    intent.setFlags(Intent.FLAG_ACTIVITY_SINGLE_TOP);
+                    startActivityForResult(intent, CropImage.CROP_IMAGE_ACTIVITY_REQUEST_CODE);
+                } else {
+                    userInfoSaved();
+                }
             }
         });
 
@@ -124,6 +128,7 @@ public class ProfileFragment extends Fragment {
         DatabaseReference UsersRef = FirebaseDatabase.getInstance().getReference().child("Users").child(Constants.currentOnlineUser.getUsername());
 
         UsersRef.addValueEventListener(new ValueEventListener() {
+            @SuppressLint("SetTextI18n")
             @Override
             public void onDataChange(DataSnapshot dataSnapshot) {
                 if (dataSnapshot.exists()) {
@@ -141,6 +146,26 @@ public class ProfileFragment extends Fragment {
                         mEditTextPhoneNumber.setText(phone);
                         mEditTextAddress.setText(address);
                         mEditTextEmail.setText(email);
+                    } else if (dataSnapshot.child("fullName").exists()) {
+                        String fullName = dataSnapshot.child("fullName").getValue().toString();
+                        String sex = dataSnapshot.child("sex").getValue().toString();
+                        String phone = dataSnapshot.child("phone").getValue().toString();
+                        String address = dataSnapshot.child("address").getValue().toString();
+                        String email = dataSnapshot.child("email").getValue().toString();
+
+                        Picasso.get().load(R.drawable.img_profile).into(mImgProfile);
+                        mEditTextFullName.setText(fullName);
+                        mSpinnerSex.setPrompt(sex);
+                        mEditTextPhoneNumber.setText(phone);
+                        mEditTextAddress.setText(address);
+                        mEditTextEmail.setText(email);
+                    } else {
+                        Picasso.get().load(R.drawable.img_profile).into(mImgProfile);
+                        mEditTextFullName.setText("");
+                        mSpinnerSex.setPrompt("");
+                        mEditTextPhoneNumber.setText("");
+                        mEditTextAddress.setText("");
+                        mEditTextEmail.setText("");
                     }
                 }
             }
@@ -262,9 +287,7 @@ public class ProfileFragment extends Fragment {
                 }
             });
         } else {
-            progressDialog.dismiss();
-            Toast.makeText(getContext(), "Image is not selected.", Toast.LENGTH_SHORT).show();
-            mBtnUpdateProfile.showNormalButton();
+            updateOnlyUserInfo();
         }
     }
 

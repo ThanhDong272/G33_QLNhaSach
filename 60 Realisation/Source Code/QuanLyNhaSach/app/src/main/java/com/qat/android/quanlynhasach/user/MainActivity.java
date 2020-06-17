@@ -14,6 +14,11 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.google.android.material.navigation.NavigationView;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.qat.android.quanlynhasach.R;
 import com.qat.android.quanlynhasach.constants.Constants;
 import com.qat.android.quanlynhasach.user_fragment.CartFragment;
@@ -28,6 +33,8 @@ import io.paperdb.Paper;
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
+
+    private DatabaseReference mUserRef;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -48,12 +55,34 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         mDrawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        // Get username and image from firebase
         View headerView = navigationView.getHeaderView(0);
         TextView userNameTextView = headerView.findViewById(R.id.user_profile_name);
         CircleImageView profileImageView = headerView.findViewById(R.id.user_profile_image);
-        userNameTextView.setText(Constants.currentOnlineUser.getUsername());
-        Picasso.get().load(Constants.currentOnlineUser.getImage()).placeholder(R.drawable.img_profile).into(profileImageView);
+
+        mUserRef = FirebaseDatabase.getInstance().getReference().child("Users").child(Constants.currentOnlineUser.getUsername());
+
+        // Get username and image from firebase
+        mUserRef.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                if (dataSnapshot.exists()) {
+                    if (dataSnapshot.child("image").exists()) {
+                        String image = dataSnapshot.child("image").getValue().toString();
+
+                        userNameTextView.setText(Constants.currentOnlineUser.getUsername());
+                        Picasso.get().load(image).placeholder(R.drawable.img_profile).into(profileImageView);
+                    } else {
+                        Picasso.get().load(R.drawable.img_profile).placeholder(R.drawable.img_profile).into(profileImageView);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
 
         // Open home fragment
         if (savedInstanceState == null) {
